@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537589297' stop='1700537591268'>
+    <name>TestList Component Tests</name>
+    <title>TestList Component Tests</title>
+    <test-cases>
+        <test-case start='1700537589303' status='passed' stop='1700537589692'>
+            <name>1. renders NavBar component without errors</name>
+            <title>1. renders NavBar component without errors</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537589692' status='passed' stop='1700537589929'>
+            <name>2. displays the username in the navbar</name>
+            <title>2. displays the username in the navbar</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537589929' status='passed' stop='1700537590107'>
+            <name>3. displays the "Create Quiz" button in the navbar</name>
+            <title>3. displays the "Create Quiz" button in the navbar</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590107' status='passed' stop='1700537590306'>
+            <name>4. displays the "Review Quiz" button in the navbar</name>
+            <title>4. displays the "Review Quiz" button in the navbar</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590306' status='passed' stop='1700537590485'>
+            <name>5. displays the "Create Test" button in the navbar</name>
+            <title>5. displays the "Create Test" button in the navbar</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590486' status='passed' stop='1700537590699'>
+            <name>6. displays the "Solve Test" button in the navbar</name>
+            <title>6. displays the "Solve Test" button in the navbar</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590700' status='passed' stop='1700537591037'>
+            <name>7. solve_button_action redirects to / if the user does not have permissions</name>
+            <title>7. solve_button_action redirects to / if the user does not have permissions</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537591038' status='passed' stop='1700537591265'>
+            <name>8. solve_button_action redirects to /choose-test if the user is a solver</name>
+            <title>8. solve_button_action redirects to /choose-test if the user is a solver</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

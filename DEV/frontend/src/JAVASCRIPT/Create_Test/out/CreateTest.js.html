@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CreateTest.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CreateTest.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import '../../CSS/index.css';
+import '../../CSS/Review_Quiz/button.css';
+import '../../CSS/Create_Test/style_tags.css';
+import React from 'react'
+import DataFetchPost from '../../DataFetchFunctions/DataFetchPost';
+import DataFetchGet from "../../DataFetchFunctions/DataFetchGet";
+import NavBar from '.././NavBar/NavBar';
+
+/*  
+  Class for the test creation page
+*/
+
+class CreateTest extends React.Component {
+  
+ /**
+   * Constructor for the CreateTest class.
+   * @param {object} props - The properties passed to this component.
+   */
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '', //Título do teste
+      tags: [], //Tags selecionadas
+      get: {} //Dados obtidos pelo GET da base de dados
+    };
+
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+ /**
+   * Function called after the component is mounted.
+   * Performs a GET request to fetch available tags and updates the state.
+   */
+
+  async componentDidMount() {
+    try {
+      const response = await DataFetchGet('api/REQ6/tags/', null);
+      console.log(response);
+      this.setState({
+        title: this.state.title,
+        tags: this.state.tags,
+        get: response
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+  
+  /**
+   * Function used to submit the test creation.
+   * @param {Event} event - The event object when the form is submitted.
+   */
+
+  async handleSubmit(event) {
+    if (this.state.tags.length !== 2) {
+      window.alert("You must select 2 tags."); //Alerta que não foi selecionado 2 tags
+    } else if (this.state.title.length &lt; 10) {
+      window.alert("The test must have a title with at least 10 characters.");//Alerta que o título está com menos de 10 caracteres
+    } else {
+      console.log(this.state);
+
+      let data_post_create_test = JSON.stringify({
+        title: this.state.title,
+        tags: this.state.tags
+      });
+      console.log(data_post_create_test);
+
+      try {
+        let result=await DataFetchPost('api/REQ6/test/', data_post_create_test); //Faz um POST para criar o teste
+        console.log(result);
+        if (result.data.status === 400) {
+          window.alert("Cannot create test; " + result.data.errors); //Alerta de erro ao criar o teste
+        }
+        else {
+          let tagtext = "";
+          console.log(result.data.count);
+          /*
+          * {
+          * 'PM': 5
+          * 'REQ': 5
+          * }
+          *
+          * */
+          for (const key in result.data.count) {
+            tagtext += result.data.count[key] + ' X ' + key + ';\n'; //Formata a contagem de tags
+          }
+          tagtext = tagtext.slice(0, tagtext.length - 2);
+          window.alert('Test created successfully! \n' + tagtext); //Alerta de sucesso da criação do teste
+        }
+        window.location.href = '/';
+      } catch (error) {
+        console.error(error.response.data);     // NOTE - use "error.response.data` (not "error")  
+      }
+    }
+    
+    event.preventDefault();
+  }
+
+  /**
+   * Function to change the test title.
+   * @param {Event} event - The event object when the title input changes.
+   */
+
+  handleTitleChange(event) {
+    this.setState({
+      title: event.target.value,
+      tags: this.state.tags,
+      get: this.state.get
+    });
+    event.preventDefault();
+  }
+
+  /**
+   * Function to handle tag button click.
+   * @param {string} tagName - The name of the tag that was clicked.
+   */
+
+  handleTagButtonClick (tagName) {
+    const existsTag = (element) => element === tagName;
+    let tagIndex = this.state.tags.findIndex(existsTag);
+    if (tagIndex === -1) { 
+      this.state.tags.push(tagName); //Adiciona a tag se não existe
+    } else {
+      this.state.tags.splice(tagIndex, 1); //Remove uma tag já existente
+    }
+    console.log(this.state);
+  }
+
+  /**
+   * Render the CreateTest component on the screen.
+   * @returns {JSX.Element} - Returns the JSX element representing the CreateTest component.
+   */
+
+  render() {
+       if(this.state.get.data === undefined) {
+         return &lt;>
+         &lt;NavBar/>
+         &lt;div className="box pergunta" id="CreateTest_instruction">Create Test is not available&lt;/div>
+         &lt;/>
+    } else return &lt;>
+      &lt;NavBar/>
+      &lt;div className="box pergunta" id="CreateTest_instruction">Choose a title for the test and select 2 tags.&lt;/div>
+      &lt;textarea className="box pergunta" id= "test_title_box" value={this.state.title} onChange={this.handleTitleChange} placeholder='Title:' />
+
+      &lt;div className="container_tags">
+
+
+        {this.state.get.data.tags.map((name, key) => {
+          return (
+            &lt;div key={key}>
+              &lt;ButtonTag name={name} onClick={() => this.handleTagButtonClick(name)}/>
+            &lt;/div>
+          );
+        })}
+
+      &lt;/div>
+      &lt;div className="container_submit_cancel_tags">
+        &lt;button className="button submit" onClick={this.handleSubmit}>SUBMIT&lt;/button>
+        &lt;button className="button cancel" onClick={() => { window.location.href = '/'; }}>CANCEL&lt;/button>
+      &lt;/div>
+      {"}"}
+    &lt;/>
+  }
+}
+
+  /**
+   * Component to represent a tag button.
+   * @param {Object} props - The properties passed to this component.
+   */
+
+const ButtonTag = ({ name, onClick }) => {
+    function handleClick(e) {
+      onClick();
+      if(e.target.className === "button tag_button") e.target.className="button tag_button_click";
+      else e.target.className="button tag_button";
+    };
+  
+  return &lt; button onClick={e=>{handleClick(e)}} className="button tag_button">{name} &lt;/button>;
+}
+
+
+
+export default CreateTest;
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CreateTest.html">CreateTest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ButtonTag">ButtonTag</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 18:08:01 GMT+0100 (Hora de verão da Europa Ocidental)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

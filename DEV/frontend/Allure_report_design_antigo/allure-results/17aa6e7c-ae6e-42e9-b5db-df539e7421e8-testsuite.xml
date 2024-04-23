@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537583514' stop='1700537585168'>
+    <name>Admin Component</name>
+    <title>Admin Component</title>
+    <test-cases>
+        <test-case start='1700537583514' status='passed' stop='1700537584040'>
+            <name>Admin component renders without crashing</name>
+            <title>Admin component renders without crashing</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584044' status='passed' stop='1700537584997'>
+            <name>handleInputChange updates state with selected file</name>
+            <title>handleInputChange updates state with selected file</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584997' status='passed' stop='1700537585167'>
+            <name>sendFile shows an alert for no file chosen</name>
+            <title>sendFile shows an alert for no file chosen</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

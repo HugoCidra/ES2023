@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SolveTest.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SolveTest.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import '../../CSS/index.css';
+import '../../CSS/Solve_Test/SolveTest.css';
+import DataFetchGet from '../../DataFetchFunctions/DataFetchGet';
+import DataFetchPost from '../../DataFetchFunctions/DataFetchPost';
+import NavBar from '.././NavBar/NavBar';
+
+/**
+ * Global variables.
+ */
+var global = {};
+var grade_results = {};
+var submitted = false;
+
+/**
+ * Represents each option in a question.
+ * @extends React.Component
+ */
+class Option extends React.Component {
+    constructor() {
+        super();
+        this.option_classname = this.option_classname.bind(this);
+    }
+    
+    /**
+     * Handles option selection.
+     */
+    handleClick() {
+        global.solutions[this.props.id] = this.props.data.id;
+    }
+    
+    /**
+     * Define class names for option based on its state.
+     * @returns {string} The class name string.
+     */
+    option_classname() {
+        let ret = "choice-prefix ";
+        if (submitted === true) {
+            if (this.props.data.id === grade_results.results[this.props.id].correct) {
+                ret += "solve_test_correto";
+            } else if (this.props.data.id !== grade_results.results[this.props.id].correct) {
+                if (Object.values(global['solutions']).indexOf(this.props.data.id) > -1) {
+                    ret += "solve_test_errado";    
+                }
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Render the option with its associated styles.
+     * @returns {JSX.Element} Rendered component.
+     */
+    render() {
+        return &lt;div className="choice-container ">
+            &lt;div className={this.option_classname()}>
+                &lt;input type="radio" name={this.props.id} id="answer" value="answer" onClick={() => this.handleClick()} />
+            &lt;/div>
+            &lt;div className="choice-text">{this.props.data.body}&lt;/div>
+        &lt;/div>;
+    }
+}
+
+/**
+ * Represents individual quiz questions.
+ * @extends React.Component
+ */
+class Quiz extends React.Component {
+    /**
+     * Render the question text, associated options, and potential justification when submitted.
+     * @returns {JSX.Element} Rendered component.
+     */
+    render() {
+        return (
+            &lt;>
+                &lt;div className="box pergunta">{this.props.data.body}&lt;/div>
+                &lt;div className={"container_solve_test_options"}>
+                    {this.props.data.opts.map(opts => (
+                        &lt;Option data={opts} id={this.props.data.id} key={opts.id} />
+                    ))}
+                &lt;/div>
+                 {submitted === true &amp;&amp; grade_results &amp;&amp; grade_results.results &amp;&amp; this.props.data.id in grade_results.results &amp;&amp; (&lt;div className="box pergunta" id="justification_box">Justification: {grade_results.results[this.props.data.id].justification}&lt;/div>)}
+                  {/* (submitted === true &amp;&amp; this.props.data.id in grade_results.results) &amp;&amp; &lt;div className="box pergunta" id="justification_box" >Justification: {grade_results.results[this.props.data.id].justification}&lt;/div> */}
+            &lt;/>
+        );
+    }
+}
+
+/**
+ * Buttons component for test submission and navigation.
+ * @extends React.Component
+ */
+class Buttons extends React.Component {
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    /**
+     * Handle test submission.
+     * @param {Event} event - The triggered event.
+     */
+    async handleSubmit(event) {
+        let data_post = JSON.stringify(global);
+
+        await DataFetchPost(`api/REQ5/grade_test/`, data_post).then((result) => {
+            let data = result.data;
+            if (data['status'] === 501) {
+                console.log(data['log']);
+                window.alert("You've already done this test!");
+                window.location.href = "..";
+                return;
+            } else if (data['status'] === 500) {
+                window.location.href = "/login";
+                window.alert(data['log']);
+                return;
+            }
+
+            console.log(result);
+            grade_results = data;
+            window.scrollTo(0, 0);
+            submitted = true;
+            this.props.rerender();
+        });
+
+        event.preventDefault();
+    }
+
+    /**
+     * Handle navigation or cancel actions.
+     * @param {Event} event - The triggered event.
+     */
+    async handleCancel(event) {
+        if (window.confirm("Are you sure you want to go to homepage?")) {
+            window.location.href = '..';
+        }
+        event.preventDefault();
+    }
+
+    /**
+     * Render different button states based on test completion.
+     * @returns {JSX.Element} Rendered component.
+     */
+    render() {
+        return &lt;div className="container_solve_test_buttons">
+            {submitted === false &amp;&amp;  &lt;button className="button" onClick={this.handleSubmit}>SUBMIT&lt;/button>}
+            {submitted === true &amp;&amp; &lt;button className="button">YOU GOT {grade_results.grade} POINTS&lt;/button>}
+            {submitted === false &amp;&amp; &lt;button className="button" onClick={this.handleCancel}>CANCEL&lt;/button>}
+            {submitted === true &amp;&amp; &lt;button className="button" onClick={this.handleCancel}>HOMEPAGE&lt;/button>}
+        &lt;/div>;
+    }
+}
+
+/**
+ * Main component for the quiz/test interface.
+ * @extends React.Component
+ */
+class SolveTest extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            questions: [
+                {
+                    id: "1",
+                    body: "ola",
+                    opts: [
+                        { id: 1, body: "opta1" }
+                    ]
+                }
+            ]
+        };
+        this.rerender = this.rerender.bind(this);
+    }
+
+    /**
+     * Force a re-render of the component.
+     */
+    rerender() {
+        this.setState(this.state);
+    }
+
+    /**
+     * Fetch the test data on component mount.
+     */
+    async componentDidMount() {
+        let currentUrl = JSON.stringify(window.location.href);
+        let lastSlash = currentUrl.lastIndexOf("/");
+        let test_id = currentUrl.slice(lastSlash+1, -1);
+        test_id = parseInt(test_id);
+        let temp = { "id": test_id };
+
+        await DataFetchGet(`api/REQ5/get_test/`, temp).then((result) => {
+            let data = result.data;
+            if (data['status'] === 401) {
+                console.log(data['log']);
+                return;
+            } else if (data['status'] === 500) {
+                window.location.href = "/login";
+                window.alert(data['log']);
+                return;
+            }
+            global = temp;
+            let solutions = {};
+            for (let i = 0; i &lt; result.data.questions.length; i++) {
+                solutions[result.data.questions[i].id] = -1;
+            }
+            global["solutions"] = solutions;
+
+            this.setState(result.data);
+        });
+    }
+
+    /**
+     * Render the quiz and associated components.
+     * @returns {JSX.Element} Rendered component.
+     */
+    render() {
+        return (
+            &lt;>
+                &lt;main>
+                    &lt;NavBar/>
+                    &lt;div className="container_solve_test">
+                        {this.state.questions.map(quiz => {
+                            return (
+                                &lt;Quiz data={quiz} key={quiz.id}>&lt;/Quiz>
+                            );
+                        })}
+                        &lt;Buttons rerender={this.rerender}>&lt;/Buttons>
+                    &lt;/div>
+                &lt;/main>
+            &lt;/>
+        );
+    }
+}
+
+/** @module SolveTest */
+export default SolveTest;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-SolveTest.html">SolveTest</a></li></ul><h3>Classes</h3><ul><li><a href="Buttons.html">Buttons</a></li><li><a href="Option.html">Option</a></li><li><a href="Quiz.html">Quiz</a></li><li><a href="SolveTest.html">SolveTest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#global">global</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 22:44:41 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

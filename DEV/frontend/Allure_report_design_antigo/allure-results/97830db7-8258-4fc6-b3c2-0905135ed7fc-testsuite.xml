@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537584202' stop='1700537588087'>
+    <name>SolverChartAnswers Component</name>
+    <title>SolverChartAnswers Component</title>
+    <test-cases>
+        <test-case start='1700537584206' status='passed' stop='1700537587353'>
+            <name>fetches and displays data on component mount</name>
+            <title>fetches and displays data on component mount</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587354' status='passed' stop='1700537587678'>
+            <name>correctly handles an error response from the data fetch</name>
+            <title>correctly handles an error response from the data fetch</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587678' status='passed' stop='1700537587802'>
+            <name>displays a default message when no data is available</name>
+            <title>displays a default message when no data is available</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587802' status='passed' stop='1700537587964'>
+            <name>displays a message when the user must have 3 approved quizzes to become a Solver</name>
+            <title>displays a message when the user must have 3 approved quizzes to become a Solver</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587964' status='passed' stop='1700537588004'>
+            <name>handles a loading state while data is being fetched</name>
+            <title>handles a loading state while data is being fetched</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537588004' status='passed' stop='1700537588081'>
+            <name>correctly handles a null data response</name>
+            <title>correctly handles a null data response</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

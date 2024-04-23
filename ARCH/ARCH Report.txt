@@ -1,0 +1,17 @@
+There will be a Django app for backend development. The views will all be written on the same app. To setup Django all you need to do is create a virtual environment in Python and install Django in said virtual environment (venv). The Python version we are using is 3.10.4.
+
+We have a multi page React app. To install React, you first will have to install Node, due to its inclusion of NPM (Node Project Manager) which manages the app's dependencies. The only dependency we will have to install is React Router to route between the main page and all the other pages. In the terminal you will run "npm install react-router-dom".
+
+Inside the models.py file there are several classes:
+
+User - The User class consists of three main attributes: Name, password and email. There's also a fourth attribute: role; this attribute is gonna be used to identify wether the user is a creator or a solver, thus changing whar the user is able to do.
+
+Question - Question is the class made for the questions, this class has four main attributes: User, body, opt_text, explanation. We also have a fifth attribute, that being state, which defines the current state of the question. There are four different states that the question can have: "not_submitted", "in_evaluation", "rejected" or "accepted". Furthermore every question can only belong to a single user, however na user can be associated to multiple questions.
+
+Option - Option is class composed of only two main attributes: body, is_correct. Each option can only belong to a single question, however a question has multiple options.
+
+Test - Test has no really main attributes, as both its attributes (questions, creator) are attributes it inherits from others classes instead of being exclusive to itself. A test is associated to a single user, however a user can be associated to several tests. On the other hand a test is both associated to several questions and each question can be associated with several tests.
+
+SolvedTest - Just like the Test class all of SolvedTest's attributes are inherited from other classes, namely (user, test, options).  The association table for a SolvedTest is the same as the one of a Test, and every SolvedTest is associated with a singular Test.
+
+Vote - Vote has a singular main component, this being is_approved which is used to evaluate whether or not a question has been approved. It also inherits two attribute these being, user and question. Each vote is associated to a singular user and a singular question, however each user can have multiple votes (on different questions) and each question can have multiple votes.

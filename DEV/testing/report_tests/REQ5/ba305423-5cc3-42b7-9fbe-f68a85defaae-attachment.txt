@@ -1,0 +1,7 @@
+http://localhost:3000/
+Test Cancel - ✅
+CHEGOU
+Test with no answers - ✅
+Homepage Button Cancel - ✅
+Homepage Button OK - ✅
+REQ5 Test Submission TEST -> ✅

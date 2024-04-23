@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Import CSS stylesheets
+ */
+import '../../CSS/Review_Quiz/button.css'
+import '../../CSS/Review_Quiz/style.css'
+import '../../CSS/index.css'
+
+/**
+ * Import React and other components
+ */
+import React from 'react'
+import DataFetchPost from '../../DataFetchFunctions/DataFetchPost';
+
+/**
+ * Initialize a variable for acceptance
+ * @type {number}
+ */
+var acceptance = 2;
+
+/**
+ * Define a React component for submitting justifications
+ * @class
+ */
+class ContainerJustificationSubmit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',      // State to store justification text
+            accepted: 2     // 0 for rejected, 1 for accepted, 2 is the default value
+        };
+
+        /**
+         * Event handler for text area changes
+         * @param {Event} event - The change event
+         */
+        this.handleChange = this.handleChange.bind(this);
+
+        /**
+         * Event handler for submitting justifications
+         * @param {Event} event - The click event
+         */
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    // Event handler for text area changes
+    handleChange(event) {
+        this.setState({ value: event.target.value });
+    }
+
+    // Event handler for submitting justifications
+    async handleSubmit (event) {
+        // Check if the acceptance status is still the default value (2)
+        if (acceptance === 2) {
+            window.alert("You must either accept or reject the question.");
+            return;
+        } else if (acceptance === 0) {
+            // Check justification length
+            if (this.state.value.length &lt; 40 || this.state.value.length > 512) {
+                window.alert("Your justification must contain more than 40 and fewer than 512 characters.");
+                return;
+            }
+        }
+        // Update the accepted state
+        this.state.accepted = acceptance;
+        
+        // Log the data
+        console.log(this.state);
+
+        // Prepare data for a POST request
+        let data_post = JSON.stringify({
+            value: this.state.value,
+            accepted: acceptance,
+            id: this.props.id
+
+        });
+
+        // Log the data
+        console.log(data_post);
+
+        try {
+            // Perform a data post request
+            let result=await DataFetchPost('api/REQ4/vote/', data_post);
+            console.log(result.data);
+            window.location.href = '/'; // Redirect to the home page
+        } catch (error) {
+            console.error(error.response.data);     // NOTE - use "error.response.data` (not "error")
+        }
+
+        event.preventDefault(); // Prevent the default form submission behavior
+    }
+
+    /**
+     * Render the ContainerJustificationSubmit component.
+     * @returns {JSX.Element}
+     */
+    render() {
+        return &lt;div className="container_justif">
+            &lt;textarea className="box justificacao" value={this.state.value} onChange={this.handleChange} placeholder="Justification of ACCEPT/REJECT" />
+            &lt;div className="container_para_botoes_submit_cancel">
+                &lt;button className = "button submit" onClick={this.handleSubmit}>SUBMIT&lt;/button>
+                
+                &lt;button className = "button cancel" onClick={() => {window.location.href = '/';}}>CANCEL&lt;/button>
+            &lt;/div>
+        &lt;/div>
+    }
+
+}
+
+
+/**
+ * Define a React component for accepting and rejecting questions
+ * @class
+ */
+class ButtonsAccRej extends React.Component {
+    constructor() {
+        super();
+         /**
+         * Event handler for accepting a question
+         * @param {Event} event - The click event
+         */
+        this.handleSubmitAcc = this.handleSubmitAcc.bind(this);
+         /**
+         * Event handler for rejecting a question
+         * @param {Event} event - The click event
+         */
+        this.handleSubmitRej = this.handleSubmitRej.bind(this);
+    }
+
+    // Event handler for accepting a question
+    handleSubmitAcc (event) {
+        if (acceptance === 2) {
+            acceptance = 1;
+            event.target.className="button accept_review_click";
+        } else if (acceptance === 0) {
+            acceptance = 1;
+            event.target.className="button accept_review_click";
+            this.reject_button.className="button reject_review";
+        } else if (acceptance === 1) {
+            acceptance = 2;
+            event.target.className="button accept_review";
+        }
+        console.log(acceptance);
+        
+        event.preventDefault(); // Prevent the default button behavior
+    }
+
+    // Event handler for rejecting a question
+    handleSubmitRej (event) {
+        if (acceptance === 2) {
+            acceptance = 0;
+            event.target.className="button reject_review_click";
+        } else if (acceptance === 1) {
+            acceptance = 0;
+            event.target.className="button reject_review_click";
+            this.accept_button.className="button accept_review";
+        } else if (acceptance === 0) {
+            acceptance = 2;
+            event.target.className="button reject_review";
+        }
+        console.log(acceptance);
+    }
+
+    /**
+     * Render the ButtonsAccRej component.
+     * @returns {JSX.Element}
+     */
+    render() {
+        return &lt;div className="container_for_button_acc_rej">
+            &lt;button className="button accept_review" ref={ref => this.accept_button = ref}  onClick={this.handleSubmitAcc}>ACCEPT&lt;/button>
+            &lt;button className="button reject_review" ref={ref => this.reject_button = ref}  onClick={this.handleSubmitRej}>REJECT&lt;/button>
+        &lt;/div>
+    }
+}
+
+/**
+ * Define a React component for displaying the state of accepted and rejected questions
+ * @class
+ */
+class BoxContainerState extends React.Component {
+     /**
+     * Render the BoxContainerState component.
+     * @returns {JSX.Element}
+     */
+    render() {
+        return &lt;div className="box container_estado_caixa">
+            &lt;div className="aceites">
+                &lt;p className="aceites">Accepted&lt;/p>
+                &lt;p className="aceites">{this.props.dataFromParent.accepted}/{this.props.dataFromParent.max_accepted}&lt;/p>
+            &lt;/div>
+            &lt;div className="rejeitadas">
+                &lt;p className="rejeitadas">Rejected&lt;/p>
+                &lt;p className="rejeitadas">{this.props.dataFromParent.rejected}/{this.props.dataFromParent.max_accepted}&lt;/p>
+            &lt;/div>
+        &lt;/div>
+    }
+}
+
+/**
+ * Define a React component for displaying a question
+ * @class
+ */
+class Question extends React.Component {
+    /**
+     * Render the Question component.
+     * @returns {JSX.Element}
+     */
+    render() {
+        return &lt;div className="box pergunta">{this.props.text}&lt;/div>
+    }
+}
+
+
+/**
+ * Define a React component for displaying answer choices.
+ * @class
+ */
+class ChoiceContainerReview extends React.Component {
+
+     /**
+     * Render the ChoiceContainerReview component.
+     * @returns {JSX.Element}
+     */
+    render() {
+        //console.log(this.props.text)
+        return &lt;div className="choice-container">
+            &lt;p className={this.props.text[2] === true ? "correto choice-prefix":"choice-prefix"}>{this.props.letter}&lt;/p>
+            &lt;p className="choice-text">{this.props.text}&lt;/p>
+        &lt;/div>
+    }
+}
+
+/**
+ * Define a React component for displaying answer choices.
+ * @class
+ */
+class AnswersContainer extends React.Component {
+    /**
+     * Render the AnswersContainer component.
+     * @returns {JSX.Element}
+     */
+    render () {
+        return  &lt;>
+                    &lt;div className="container_respostas">
+                        &lt;div id="game" className="justify-center flex-row">
+                            &lt;ChoiceContainerReview letter='A' text={this.props.option1} />
+                            &lt;ChoiceContainerReview letter='B' text={this.props.option2} />
+                            &lt;ChoiceContainerReview letter='C' text={this.props.option3} />
+                            &lt;ChoiceContainerReview letter='D' text={this.props.option4} />
+                            &lt;ChoiceContainerReview letter='E' text={this.props.option5} />
+                            &lt;ChoiceContainerReview letter='F' text={this.props.option6} />
+                            &lt;/div>
+                    &lt;/div>
+                &lt;/>
+
+
+    }
+
+}
+
+// Export the components to be used in other parts of the application
+export {ButtonsAccRej, BoxContainerState, ContainerJustificationSubmit, ChoiceContainerReview, AnswersContainer, Question };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnswersContainer.html">AnswersContainer</a></li><li><a href="BoxContainerState.html">BoxContainerState</a></li><li><a href="ButtonsAccRej.html">ButtonsAccRej</a></li><li><a href="ChoiceContainerReview.html">ChoiceContainerReview</a></li><li><a href="ContainerJustificationSubmit.html">ContainerJustificationSubmit</a></li><li><a href="Question.html">Question</a></li></ul><h3>Global</h3><ul><li><a href="global.html#acceptance">acceptance</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 17:29:31 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

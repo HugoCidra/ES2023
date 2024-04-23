@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537579192' stop='1700537580886'>
+    <name>Unit_testing_frontend\Tests_grupo2\SolveTest.test.js</name>
+    <title>Unit_testing_frontend\Tests_grupo2\SolveTest.test.js</title>
+    <test-cases>
+        <test-case start='1700537579192' status='passed' stop='1700537579860'>
+            <name>should fetch test data on component mount</name>
+            <title>should fetch test data on component mount</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537579861' status='passed' stop='1700537580455'>
+            <name>handleCancel function should confirm and redirect</name>
+            <title>handleCancel function should confirm and redirect</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537580456' status='passed' stop='1700537580884'>
+            <name>handleSubmit function should call DataFetchPost and update state</name>
+            <title>handleSubmit function should call DataFetchPost and update state</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

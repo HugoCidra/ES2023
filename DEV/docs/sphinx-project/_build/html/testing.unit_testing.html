@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>testing.unit_testing package &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="testing.unit_testing.REQ1 package" href="testing.unit_testing.REQ1.html" />
+    <link rel="prev" title="testing.REQ8 package" href="testing.REQ8.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">main</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="testing.html">testing package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="testing.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ1.html">testing.REQ1 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ2.html">testing.REQ2 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ3.html">testing.REQ3 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ4.html">testing.REQ4 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ5.html">testing.REQ5 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ7.html">testing.REQ7 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ8.html">testing.REQ8 package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">testing.unit_testing package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-testing.unit_testing.conftest">testing.unit_testing.conftest module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-testing.unit_testing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing1.html">testing.unit_testing1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#module-testing.Test_All">testing.Test_All module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#module-testing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="testing.html">testing package</a></li>
+      <li class="breadcrumb-item active">testing.unit_testing package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/testing.unit_testing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing-unit-testing-package">
+<h1>testing.unit_testing package<a class="headerlink" href="#testing-unit-testing-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ1.html">testing.unit_testing.REQ1 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ1.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ1.html#module-testing.unit_testing.REQ1.Test_get_values">testing.unit_testing.REQ1.Test_get_values module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.Test_get_values.test_get_values"><code class="docutils literal notranslate"><span class="pre">test_get_values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ1.html#module-testing.unit_testing.REQ1.test_login">testing.unit_testing.REQ1.test_login module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_login.test_login_empty_body"><code class="docutils literal notranslate"><span class="pre">test_login_empty_body()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_login.test_login_invalid_credentials"><code class="docutils literal notranslate"><span class="pre">test_login_invalid_credentials()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_login.test_login_successful"><code class="docutils literal notranslate"><span class="pre">test_login_successful()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_login.test_login_wrong_method"><code class="docutils literal notranslate"><span class="pre">test_login_wrong_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ1.html#module-testing.unit_testing.REQ1.test_register">testing.unit_testing.REQ1.test_register module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_duplicated_user"><code class="docutils literal notranslate"><span class="pre">test_register_duplicated_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_empty_payload"><code class="docutils literal notranslate"><span class="pre">test_register_empty_payload()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_register_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_missing_email"><code class="docutils literal notranslate"><span class="pre">test_register_missing_email()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_missing_multiple_properties"><code class="docutils literal notranslate"><span class="pre">test_register_missing_multiple_properties()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_missing_password"><code class="docutils literal notranslate"><span class="pre">test_register_missing_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_missing_username"><code class="docutils literal notranslate"><span class="pre">test_register_missing_username()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ1.html#testing.unit_testing.REQ1.test_register.test_register_ok"><code class="docutils literal notranslate"><span class="pre">test_register_ok()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ1.html#module-testing.unit_testing.REQ1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ2.html">testing.unit_testing.REQ2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ2.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ2.html#module-testing.unit_testing.REQ2.test_creators">testing.unit_testing.REQ2.test_creators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_creators.test_creators_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_creators_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_creators.test_creators_no_token"><code class="docutils literal notranslate"><span class="pre">test_creators_no_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_creators.test_creators_valid_token_valid_request"><code class="docutils literal notranslate"><span class="pre">test_creators_valid_token_valid_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ2.html#module-testing.unit_testing.REQ2.test_is_solver">testing.unit_testing.REQ2.test_is_solver module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_is_solver.test_is_solver_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_is_solver_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_is_solver.test_is_solver_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_is_solver_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_is_solver.test_is_solver_invalid_user"><code class="docutils literal notranslate"><span class="pre">test_is_solver_invalid_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_is_solver.test_is_solver_valid_user"><code class="docutils literal notranslate"><span class="pre">test_is_solver_valid_user()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ2.html#module-testing.unit_testing.REQ2.test_solvers">testing.unit_testing.REQ2.test_solvers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_solvers.test_solvers_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_solvers_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_solvers.test_solvers_no_token"><code class="docutils literal notranslate"><span class="pre">test_solvers_no_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_solvers.test_solvers_valid_token_valid_request"><code class="docutils literal notranslate"><span class="pre">test_solvers_valid_token_valid_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ2.html#module-testing.unit_testing.REQ2.test_unfinished_reproved_quizzes">testing.unit_testing.REQ2.test_unfinished_reproved_quizzes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_unfinished_reproved_quizzes.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_unfinished_reproved_quizzes.test_register_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_register_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ2.html#testing.unit_testing.REQ2.test_unfinished_reproved_quizzes.test_valid_token"><code class="docutils literal notranslate"><span class="pre">test_valid_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ2.html#module-testing.unit_testing.REQ2">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ3.html">testing.unit_testing.REQ3 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#module-testing.unit_testing.REQ3.test_create_quiz">testing.unit_testing.REQ3.test_create_quiz module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_new_question_successful"><code class="docutils literal notranslate"><span class="pre">test_new_question_successful()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_question_id_not_provided"><code class="docutils literal notranslate"><span class="pre">test_question_id_not_provided()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_question_not_found"><code class="docutils literal notranslate"><span class="pre">test_question_not_found()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_update_question_successful"><code class="docutils literal notranslate"><span class="pre">test_update_question_successful()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_user_not_found"><code class="docutils literal notranslate"><span class="pre">test_user_not_found()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_create_quiz.test_wrong_method"><code class="docutils literal notranslate"><span class="pre">test_wrong_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#module-testing.unit_testing.REQ3.test_delete_quiz">testing.unit_testing.REQ3.test_delete_quiz module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_delete_question_successful"><code class="docutils literal notranslate"><span class="pre">test_delete_question_successful()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_question_id_not_valid"><code class="docutils literal notranslate"><span class="pre">test_question_id_not_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_register_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_register_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_verify_question_deletion"><code class="docutils literal notranslate"><span class="pre">test_verify_question_deletion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#module-testing.unit_testing.REQ3.test_get_quiz">testing.unit_testing.REQ3.test_get_quiz module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_get_quiz.test_get_quiz_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_get_quiz_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_get_quiz.test_get_quiz_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_get_quiz_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_get_quiz.test_get_quiz_invalid_user"><code class="docutils literal notranslate"><span class="pre">test_get_quiz_invalid_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_get_quiz.test_get_quiz_question_not_editable"><code class="docutils literal notranslate"><span class="pre">test_get_quiz_question_not_editable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_get_quiz.test_get_quiz_valido"><code class="docutils literal notranslate"><span class="pre">test_get_quiz_valido()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_get_quiz.test_is_solver_invalid_user"><code class="docutils literal notranslate"><span class="pre">test_is_solver_invalid_user()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#module-testing.unit_testing.REQ3.test_new_quiz">testing.unit_testing.REQ3.test_new_quiz module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_new_quiz.test_empty_payload"><code class="docutils literal notranslate"><span class="pre">test_empty_payload()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_new_quiz.test_verify_option_creation"><code class="docutils literal notranslate"><span class="pre">test_verify_option_creation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_new_quiz.test_verify_question_creation"><code class="docutils literal notranslate"><span class="pre">test_verify_question_creation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#module-testing.unit_testing.REQ3.test_update_quiz">testing.unit_testing.REQ3.test_update_quiz module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_update_quiz.test_empty_payload"><code class="docutils literal notranslate"><span class="pre">test_empty_payload()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_update_quiz.test_verify_question_deletion"><code class="docutils literal notranslate"><span class="pre">test_verify_question_deletion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ3.html#module-testing.unit_testing.REQ3">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ4.html">testing.unit_testing.REQ4 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ4.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ4.html#module-testing.unit_testing.REQ4.test_quiz">testing.unit_testing.REQ4.test_quiz module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_quiz.test_quiz_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_quiz_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_quiz.test_quiz_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_quiz_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_quiz.test_quiz_valid_token_no_json"><code class="docutils literal notranslate"><span class="pre">test_quiz_valid_token_no_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ4.html#module-testing.unit_testing.REQ4.test_vote">testing.unit_testing.REQ4.test_vote module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.aux_create_quiz"><code class="docutils literal notranslate"><span class="pre">aux_create_quiz()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.aux_create_vote"><code class="docutils literal notranslate"><span class="pre">aux_create_vote()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_approved_question"><code class="docutils literal notranslate"><span class="pre">test_approved_question()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_rejected_question"><code class="docutils literal notranslate"><span class="pre">test_rejected_question()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_verify_vote_creation"><code class="docutils literal notranslate"><span class="pre">test_verify_vote_creation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_without_token"><code class="docutils literal notranslate"><span class="pre">test_without_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ4.html#module-testing.unit_testing.REQ4">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ5.html">testing.unit_testing.REQ5 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ5.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ5.html#module-testing.unit_testing.REQ5.test_get_test">testing.unit_testing.REQ5.test_get_test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_get_test.test_get_test_invalid_login"><code class="docutils literal notranslate"><span class="pre">test_get_test_invalid_login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_get_test.test_get_test_not_found"><code class="docutils literal notranslate"><span class="pre">test_get_test_not_found()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_get_test.test_get_test_passed"><code class="docutils literal notranslate"><span class="pre">test_get_test_passed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_get_test.test_get_test_wrong_method"><code class="docutils literal notranslate"><span class="pre">test_get_test_wrong_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ5.html#module-testing.unit_testing.REQ5.test_grade_test">testing.unit_testing.REQ5.test_grade_test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_grade_test.test_already_done"><code class="docutils literal notranslate"><span class="pre">test_already_done()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_grade_test.test_grade_success"><code class="docutils literal notranslate"><span class="pre">test_grade_success()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_grade_test.test_invalid_login"><code class="docutils literal notranslate"><span class="pre">test_invalid_login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_grade_test.test_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_invalid_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ5.html#module-testing.unit_testing.REQ5.test_list_test">testing.unit_testing.REQ5.test_list_test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_list_test.test_list_test_invalid_login"><code class="docutils literal notranslate"><span class="pre">test_list_test_invalid_login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_list_test.test_list_test_passed"><code class="docutils literal notranslate"><span class="pre">test_list_test_passed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ5.html#testing.unit_testing.REQ5.test_list_test.test_list_test_wrong_method"><code class="docutils literal notranslate"><span class="pre">test_list_test_wrong_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ5.html#module-testing.unit_testing.REQ5">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ6.html">testing.unit_testing.REQ6 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ6.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ6.html#module-testing.unit_testing.REQ6.test_create_test">testing.unit_testing.REQ6.test_create_test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_create_test.test_created_successfully"><code class="docutils literal notranslate"><span class="pre">test_created_successfully()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_create_test.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_create_test.test_valid_token_emptytags"><code class="docutils literal notranslate"><span class="pre">test_valid_token_emptytags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_create_test.test_valid_token_not_enough_questions"><code class="docutils literal notranslate"><span class="pre">test_valid_token_not_enough_questions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ6.html#module-testing.unit_testing.REQ6.test_tags">testing.unit_testing.REQ6.test_tags module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_tags.test_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_tags.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ6.html#testing.unit_testing.REQ6.test_tags.test_tags_retrieved_successfully"><code class="docutils literal notranslate"><span class="pre">test_tags_retrieved_successfully()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ6.html#module-testing.unit_testing.REQ6">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ7.html">testing.unit_testing.REQ7 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ7.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ7.html#module-testing.unit_testing.REQ7.test_load_info">testing.unit_testing.REQ7.test_load_info module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_load_info.test_invalid_file"><code class="docutils literal notranslate"><span class="pre">test_invalid_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_load_info.test_invalid_format"><code class="docutils literal notranslate"><span class="pre">test_invalid_format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_load_info.test_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_load_info.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_load_info.test_no_token"><code class="docutils literal notranslate"><span class="pre">test_no_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ7.html#module-testing.unit_testing.REQ7.test_send_info">testing.unit_testing.REQ7.test_send_info module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_send_info.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_send_info.test_no_token"><code class="docutils literal notranslate"><span class="pre">test_no_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_send_info.test_send_info"><code class="docutils literal notranslate"><span class="pre">test_send_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ7.html#testing.unit_testing.REQ7.test_send_info.test_send_info_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_send_info_invalid_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ7.html#module-testing.unit_testing.REQ7">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.unit_testing.REQ8.html">testing.unit_testing.REQ8 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ8.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ8.html#module-testing.unit_testing.REQ8.test_get_stats_solver">testing.unit_testing.REQ8.test_get_stats_solver module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_stats_solver.test_get_stats_solver_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_get_stats_solver_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_stats_solver.test_get_stats_solver_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_get_stats_solver_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_stats_solver.test_get_stats_solver_valid_token"><code class="docutils literal notranslate"><span class="pre">test_get_stats_solver_valid_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ8.html#module-testing.unit_testing.REQ8.test_get_tags_creator">testing.unit_testing.REQ8.test_get_tags_creator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_tags_creator.test_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_tags_creator.test_tags_created_successfully"><code class="docutils literal notranslate"><span class="pre">test_tags_created_successfully()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_tags_creator.test_user_not_found"><code class="docutils literal notranslate"><span class="pre">test_user_not_found()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ8.html#module-testing.unit_testing.REQ8.test_get_username">testing.unit_testing.REQ8.test_get_username module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_username.test_get_username_invalid_method"><code class="docutils literal notranslate"><span class="pre">test_get_username_invalid_method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_username.test_get_username_invalid_token"><code class="docutils literal notranslate"><span class="pre">test_get_username_invalid_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.REQ8.html#testing.unit_testing.REQ8.test_get_username.test_get_username_valid_token"><code class="docutils literal notranslate"><span class="pre">test_get_username_valid_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.unit_testing.REQ8.html#module-testing.unit_testing.REQ8">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-testing.unit_testing.conftest">
+<span id="testing-unit-testing-conftest-module"></span><h2>testing.unit_testing.conftest module<a class="headerlink" href="#module-testing.unit_testing.conftest" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.unit_testing.conftest.django_db_setup">
+<span class="sig-prename descclassname"><span class="pre">testing.unit_testing.conftest.</span></span><span class="sig-name descname"><span class="pre">django_db_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">django_db_setup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/unit_testing/conftest.html#django_db_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.unit_testing.conftest.django_db_setup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-testing.unit_testing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-testing.unit_testing" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="testing.REQ8.html" class="btn btn-neutral float-left" title="testing.REQ8 package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.unit_testing.REQ1.html" class="btn btn-neutral float-right" title="testing.unit_testing.REQ1 package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

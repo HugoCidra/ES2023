@@ -1,0 +1,9 @@
+[run]
+omit =
+    */unit_testing/*
+    */migrations/*
+    */main/main/*
+    */scripts/*
+    */utils/*
+    */main/api/*.py
+    */__init__.py

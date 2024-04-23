@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537578794' stop='1700537578878'>
+    <name>questao</name>
+    <title>questao</title>
+    <test-cases>
+        <test-case start='1700537578795' status='passed' stop='1700537578875'>
+            <name>should return false for an empty question</name>
+            <title>should return false for an empty question</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537578875' status='passed' stop='1700537578877'>
+            <name>should return true for a non-empty question</name>
+            <title>should return true for a non-empty question</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

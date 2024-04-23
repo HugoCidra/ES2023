@@ -1,0 +1,25 @@
+
+form{
+    flex-grow: 1;
+}
+
+.filter{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: Century Gothic;
+    font-size: 1.2rem;
+
+
+    margin-right: 1rem;
+
+    > option{
+        background-color: var(--background);
+        color: var(--grey);
+    }
+}
+
+.filter:focus{
+    outline: none;
+}

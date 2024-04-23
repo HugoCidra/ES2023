@@ -1,0 +1,63 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537583745' stop='1700537586274'>
+    <name>Login submit Tests</name>
+    <title>Login submit Tests</title>
+    <test-cases>
+        <test-case start='1700537583751' status='passed' stop='1700537584121'>
+            <name>1. Initial Form Rendering </name>
+            <title>1. Initial Form Rendering </title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584121' status='passed' stop='1700537584499'>
+            <name>2. Redirects to home on successful registration</name>
+            <title>2. Redirects to home on successful registration</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584499' status='passed' stop='1700537585095'>
+            <name>3. Shows "Username already exists!" on 500 status code</name>
+            <title>3. Shows "Username already exists!" on 500 status code</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585095' status='passed' stop='1700537585333'>
+            <name>4. Shows "Username must be between 6 and 18 characters" when an invalid username is provided</name>
+            <title>4. Shows "Username must be between 6 and 18 characters" when an invalid username is provided</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585333' status='passed' stop='1700537585568'>
+            <name>5. Shows "Password must be between 8 and 18 characters" when an invalid password is provided</name>
+            <title>5. Shows "Password must be between 8 and 18 characters" when an invalid password is provided</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585568' status='passed' stop='1700537586040'>
+            <name>6. Shows "Username must contain only alphanumerical characters, '-' and '_'" when an invalid username is provided</name>
+            <title>6. Shows "Username must contain only alphanumerical characters, '-' and '_'" when an invalid username is provided</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537586040' status='passed' stop='1700537586272'>
+            <name>7. Shows "Password must contain only alphanumerical characters, '-', '_', '#', '$', '%', '&amp;' and '@'" when an invalid password is provided</name>
+            <title>7. Shows "Password must contain only alphanumerical characters, '-', '_', '#', '$', '%', '&amp;' and '@'" when an invalid password is provided</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component, useState, useEffect } from 'react';
+import '../../CSS/index.css';
+import DataFetchGet from '../../DataFetchFunctions/DataFetchGet';
+import '../../CSS/Profile/Profile.css';
+import NavBar from '.././NavBar/NavBar';
+
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid,
+  Legend, Tooltip,ResponsiveContainer } from 'recharts';
+
+
+class CreatorChart extends React.Component {
+
+  /**
+   * Constructor for CreatorChart Component
+   * @param {state} state Variable which holds information which may change during lifetime of this component
+   * @param {Array} data An array containing the data of the user
+   */
+  constructor() {
+    super();
+    this.state = {
+      data:[]
+    };
+  }
+
+  /**
+   * React function. Called when CreatorChart is initialzed an after the constructor.
+   * Fetchs the DataBase for the tags of the user, assuming said user is a creator.
+   * If sucessfull, saves that data on the data variable on state. Else, prints an error in the console.
+   */
+  async componentDidMount() {
+    try {
+      let response = await DataFetchGet('api/REQ8/get_tags_creator/', null);
+      console.log(response);
+      this.setState({data: response['data'].data});
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+ 
+  /**
+   * Render function.
+   * If there is are no quizes then it returns with an html code warning the user they have no quizes.
+   * Else, it returns a BarChart with the data saved on state.
+   * BarChart: Component imported from "rechart". Uses horizontal rectangular bars with lengths proportional to the values they represent in order to sort information.
+   * @returns {html} Component imported from "rechart". Uses horizontal rectangular bars with lengths proportional to the values they represent in order to sort information.
+   */
+  render(){
+  if(this.state.data.length === 0){
+    return (
+      &lt;>
+      &lt;div className="box pergunta" id= "profile_msg">You do not have approved or not approved quizzes!&lt;/div>
+      &lt;/>
+    )
+  }else{
+  return (
+    &lt;BarChart
+      width={1500}
+      height={500}
+      data={this.state.data}
+      layout="vertical"
+      margin={{ top: 150, right: 250, bottom: 0, left: 300 }}
+    >
+
+      &lt;text x={380} y={160} fill="black" textAnchor="middle" dominantBaseline="central" fontWeight={"bold"}>
+        &lt;tspan fontSize="18">QUIZZES&lt;/tspan>&lt;/text>
+      &lt;XAxis type="number" />
+      &lt;YAxis type="category" width={40} padding={{ left: 20 }} dataKey="name" />
+
+      &lt;Tooltip />
+
+      &lt;Legend verticalAlign="top" height={36} align="right" iconSize="20" />
+      &lt;Bar name="Approved" dataKey="x" stackId="a" fill="green" />
+      &lt;Bar name="Not Approved" dataKey="y" stackId="a" fill="red" />
+
+    &lt;/BarChart>
+
+  );
+  }}
+}
+
+class SolverChartAnswers extends React.Component{
+
+  /**
+   * Constructor for SolverChartAnswers Component.
+   * @param {state} state Variable which holds information which may change during lifetime of this component.
+   * @param {Array} data An array containing the data of the user.
+   * @param {int} is_solver An integer that could be a boolean. 1 is True, everything else is False.
+   */
+  constructor() {
+    super();
+    this.state = {
+      data:[],
+      is_solver: 1
+    };
+  }
+
+  /**
+   * React function. Called when SolverChartAnswers is called and after the constructor.
+   * Fetchs the DataBase for the stats of the solver. If the user is a solver, the variable data will hold its information.
+   * Else, is_solver is set to 0, meaning False.
+   * If the DataBase is unreachable, an error will be logged in the console.
+   */
+  async componentDidMount() {
+    try {
+      let response = await DataFetchGet('api/REQ8/get_stats_solver/', null);
+      console.log(response);
+      if(response.data.status === 401){
+        this.setState({is_solver: 0})
+      }
+      this.setState({data: response['data'].data});
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
+  /**
+   * Render function.
+   * If the user is a solver, checks if he has solved any tests. If he did then those tests are organized with a BarChart.
+   * Else, if he is not a solver, it warns the user that he must have 3 approved quizes to be a solver.
+   * BarChart: Component imported from "rechart". Uses horizontal rectangular bars with lengths proportional to the values they represent in order to sort information.
+   * @returns {html}
+   */
+  render(){
+    if(this.state.is_solver === 1){
+      if(this.state.data.length === 0){
+        return (
+          &lt;>
+          &lt;div className="box pergunta" id= "profile_msg">You have not solved any test yet!&lt;/div>
+          &lt;/>
+        )
+      }else{
+    return (
+      &lt;BarChart
+        width={1500}
+        height={500}
+        data={this.state.data}
+        layout="vertical"
+        margin={{ top: 150, right: 250, bottom: 0, left: 300 }}
+      >
+
+        &lt;text x={385} y={160} fill="black" textAnchor="middle" dominantBaseline="central" fontWeight={"bold"}>
+          &lt;tspan fontSize="18">ANSWERS&lt;/tspan>&lt;/text>
+        &lt;XAxis type="number" />
+        &lt;YAxis type="category" width={40} padding={{ left: 20 }} dataKey="name" />
+  
+        &lt;Tooltip />
+  
+        &lt;Legend verticalAlign="top" height={36} align="right" iconSize="20" />
+        &lt;Bar name="Correct" dataKey="x" stackId="a" fill="green" />
+        &lt;Bar name="Not Correct" dataKey="y" stackId="a" fill="red" />
+  
+      &lt;/BarChart>
+    );}
+    }else{
+      return (
+        &lt;>
+        &lt;div className="box pergunta" id= "profile_msg">You must have 3 approved quizzes to become a Solver!&lt;/div>
+        &lt;/>
+      )
+    }
+  }
+  
+}
+
+class Profile extends React.Component {
+  
+    /**
+     * Render function
+     * @returns {html} the main information of the site
+     */
+    render(){
+        return &lt;>
+        &lt;main>
+          &lt;NavBar/>    
+          &lt;CreatorChart/>
+          &lt;SolverChartAnswers/>
+        &lt;/main>
+        &lt;/>
+    }
+
+}
+
+export default Profile;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CreatorChart.html">CreatorChart</a></li><li><a href="SolverChartAnswers.html">SolverChartAnswers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 22:41:44 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

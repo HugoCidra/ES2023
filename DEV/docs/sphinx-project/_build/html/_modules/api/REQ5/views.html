@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api.REQ5.views &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api.REQ5.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api.REQ5.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">JsonResponse</span><span class="p">,</span> <span class="n">HttpRequest</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">Test</span><span class="p">,</span> <span class="n">SolvedTest</span><span class="p">,</span> <span class="n">Option</span><span class="p">,</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">requests</span>
+<span class="kn">from</span> <span class="nn">django.db.utils</span> <span class="kn">import</span> <span class="n">IntegrityError</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># custom decorators</span>
+<div class="viewcode-block" id="check_method">
+<a class="viewcode-back" href="../../../api.REQ5.html#api.REQ5.views.check_method">[docs]</a>
+<span class="k">def</span> <span class="nf">check_method</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">inner2</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">!=</span> <span class="n">method</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span>
+                    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+                    <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Method (</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s1">) not alowed, only </span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="p">})</span>
+            
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">inner2</span>
+    
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+<div class="viewcode-block" id="login_required">
+<a class="viewcode-back" href="../../../api.REQ5.html#api.REQ5.views.login_required">[docs]</a>
+<span class="k">def</span> <span class="nf">login_required</span><span class="p">(</span><span class="n">token_var_name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">verify_exp</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">debug_mode</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">inner2</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c1"># check user auth</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">extract_token</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">debug_mode</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;User not loged in&quot;</span><span class="p">})</span>
+
+            <span class="c1"># if you dont need the payload</span>
+            <span class="k">if</span> <span class="n">token_var_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">debug_mode</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">tokens</span><span class="o">.</span><span class="n">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">verify_exp</span><span class="o">=</span><span class="n">verify_exp</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;Expired session&quot;</span><span class="p">})</span>
+
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">token_var_name</span><span class="o">.</span><span class="n">isidentifier</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">token_var_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> is not a valid var name!!!&quot;</span><span class="p">)</span>
+
+            <span class="c1"># case you want token payload</span>
+            <span class="c1"># check token validation</span>
+            <span class="n">token_payload</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">extrat_token_info</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">verify_exp</span><span class="o">=</span><span class="n">verify_exp</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">token_payload</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">debug_mode</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;Expired session&quot;</span><span class="p">})</span>
+
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">token_var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">token_payload</span>
+
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">inner2</span>
+    
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+
+<div class="viewcode-block" id="get_test">
+<a class="viewcode-back" href="../../../api.REQ5.html#api.REQ5.views.get_test">[docs]</a>
+<span class="nd">@check_method</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span> <span class="c1"># check if method is GET (get information)</span>
+<span class="nd">@login_required</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">get_test</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Obtain question and options of a specific test</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): request</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        JsonResponse: response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">extract_request_params</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c1"># Get the test from the database</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">my_test</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="n">Test</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s1">&#39;Test not found&#39;</span><span class="p">})</span>
+    
+    <span class="c1"># get questions information</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">question</span> <span class="ow">in</span> <span class="n">my_test</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        
+        <span class="c1"># get the options from question</span>
+        <span class="n">temp_opts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">question</span><span class="o">.</span><span class="n">option_set</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">temp_opts</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">body</span>
+            <span class="p">})</span>
+        
+        <span class="n">resp</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">question</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">question</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="n">temp_opts</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;questions&#39;</span><span class="p">:</span> <span class="n">resp</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="list_test">
+<a class="viewcode-back" href="../../../api.REQ5.html#api.REQ5.views.list_test">[docs]</a>
+<span class="nd">@check_method</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+<span class="nd">@login_required</span><span class="p">(</span><span class="s2">&quot;user_info&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">list_test</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">,</span> <span class="n">user_info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;returns all tests and its tags</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request : HttpRequest</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        _type_: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">user_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+    
+    <span class="c1">#get the tests already solved by the user</span>
+    <span class="n">solved_tests_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">SolvedTest</span><span class="o">.</span><span class="n">objects</span>
+                        <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user__id</span> <span class="o">=</span> <span class="n">user_id</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;test__id&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="c1">#exclude the solved tests</span>
+    <span class="n">tests</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">solved_tests_ids</span><span class="p">)</span>
+    
+    <span class="n">response</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">tests</span><span class="p">:</span>
+        <span class="n">questions</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">questions</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;tag__value&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">())</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="n">test</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">test</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                         <span class="s2">&quot;tags&quot;</span><span class="p">:</span><span class="n">tags</span><span class="p">}</span>
+                        <span class="p">)</span>
+
+
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;tests&quot;</span><span class="p">:</span> <span class="n">response</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="grade_test">
+<a class="viewcode-back" href="../../../api.REQ5.html#api.REQ5.views.grade_test">[docs]</a>
+<span class="nd">@check_method</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">)</span> <span class="c1"># check if method is POST (create information)</span>
+<span class="nd">@login_required</span><span class="p">(</span><span class="s2">&quot;token_payload&quot;</span><span class="p">,</span> <span class="n">verify_exp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">grade_test</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">,</span> <span class="n">token_payload</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save user solution for a test and returns the needed jsutifications and grade</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): request</span>
+<span class="sd">        token_payload (dict): payload do token</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        JsonResponse: response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="n">req_payload</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">extract_request_params</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c1"># get test and user</span>
+    <span class="n">my_test</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">req_payload</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">token_payload</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+    
+    <span class="n">new_solved_test</span> <span class="o">=</span> <span class="n">SolvedTest</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="n">my_test</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_solved_test</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">IntegrityError</span><span class="p">:</span>
+        <span class="c1"># if there is a &quot;SolvedTest&quot; with the same user and test raises IntegrityError</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">501</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span> <span class="s2">&quot;user already did this test&quot;</span><span class="p">})</span>
+        <span class="c1"># pass</span>
+
+    <span class="c1"># get the chosen options of the user from th db</span>
+    <span class="n">my_opts</span> <span class="o">=</span> <span class="n">Option</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">id__in</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">req_payload</span><span class="p">[</span><span class="s1">&#39;solutions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+    <span class="p">)</span>
+
+    <span class="c1"># get the correct options of the questions of the test</span>
+    <span class="c1"># [1] so quero as opts que estao corretas</span>
+    <span class="c1"># [2] so quero as opts que pertencem a perguntas que pretencem ao &quot;my_test&quot;</span>
+    <span class="n">correct_opts</span> <span class="o">=</span> <span class="n">Option</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_correct</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">question__in</span><span class="o">=</span><span class="n">my_test</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="c1"># init &quot;results&quot; with the correct answers</span>
+    <span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">correct_opts</span><span class="p">:</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">opt</span><span class="o">.</span><span class="n">question</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;justification&#39;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">justification</span><span class="p">,</span>
+            <span class="s1">&#39;correct&#39;</span><span class="p">:</span> <span class="n">opt</span><span class="o">.</span><span class="n">id</span>
+        <span class="p">}</span>
+    
+    <span class="n">grade</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">my_opts</span><span class="p">:</span>
+        <span class="n">new_solved_test</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span> <span class="c1"># relate opt to the SolvedTest</span>
+        
+        <span class="n">grade</span> <span class="o">+=</span> <span class="n">opt</span><span class="o">.</span><span class="n">is_correct</span> <span class="c1"># grade += (True | False) = (1 | 0)</span>
+        
+        <span class="c1"># update &quot;results&quot; justification</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">opt</span><span class="o">.</span><span class="n">question</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="s1">&#39;justification&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">justification</span>
+
+    <span class="n">new_solved_test</span><span class="o">.</span><span class="n">grade</span> <span class="o">=</span> <span class="n">grade</span>
+    <span class="n">new_solved_test</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">force_update</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># update value</span>
+
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;grade&#39;</span><span class="p">:</span><span class="n">grade</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">:</span><span class="n">results</span><span class="p">})</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

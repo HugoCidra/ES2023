@@ -1,0 +1,65 @@
+/*This entire file is made for the display of the button in different situations (changing color when mouse is hovering as an example.)*/
+@keyframes scale {
+    0%{
+        transform: scale(1, 1);
+    }    
+    50%{
+        transform: scale(1.05, 1.05);
+    }
+    100%{
+        transform: scale(1, 1);
+    }
+}
+
+.container_for_button_acc_rej {
+    display: flex;
+    margin: 20px;
+
+    align-items: center;
+
+    justify-content: center;
+    gap: 3rem;
+
+    .accept_review {
+        background-color: var(--green-accept);
+        border:none;
+    }
+    .reject_review {
+        background-color: var(--red-reject);
+        border:none;
+    }
+
+    .accept_review:hover {
+        box-shadow: var(--shadow);
+    }
+    .reject_review:hover {
+        box-shadow: var(--shadow);
+    }
+
+}
+.container_submit_cancel{
+    display: flex;
+    flex-direction: column;
+    margin:2rem;
+    gap: 2rem;
+    align-items: center;
+}
+
+
+.accept_review_click{
+    box-shadow: 0px 0px 30px 5px rgba(180,228,180, 0.25);
+    border: 0.3rem solid rgb(180,228,180);
+}
+
+.accept_review_click:hover{
+    background-color: transparent;
+}
+
+.reject_review_click{
+    box-shadow: 0px 0px 30px 5px rgba(218, 94, 80, 0.25);   
+    border: 0.3rem solid rgb(218, 94, 80)
+}
+
+.reject_review_click:hover{
+    background-color: transparent;
+}

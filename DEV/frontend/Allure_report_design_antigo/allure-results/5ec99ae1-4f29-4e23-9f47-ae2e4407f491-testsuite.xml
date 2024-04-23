@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537584412' stop='1700537588542'>
+    <name>CreatorChart Component</name>
+    <title>CreatorChart Component</title>
+    <test-cases>
+        <test-case start='1700537584413' status='passed' stop='1700537587423'>
+            <name>fetches data on component mount and displays it</name>
+            <title>fetches data on component mount and displays it</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587423' status='passed' stop='1700537587612'>
+            <name>handles a failed data fetch and displays an error message</name>
+            <title>handles a failed data fetch and displays an error message</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587613' status='passed' stop='1700537587746'>
+            <name>handles loading state while data is being fetched</name>
+            <title>handles loading state while data is being fetched</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587746' status='passed' stop='1700537587909'>
+            <name>correctly handles an error response from the data fetch</name>
+            <title>correctly handles an error response from the data fetch</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537587910' status='passed' stop='1700537588037'>
+            <name>displays a message when no data is available</name>
+            <title>displays a message when no data is available</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537588040' status='passed' stop='1700537588540'>
+            <name>renders without crashing</name>
+            <title>renders without crashing</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

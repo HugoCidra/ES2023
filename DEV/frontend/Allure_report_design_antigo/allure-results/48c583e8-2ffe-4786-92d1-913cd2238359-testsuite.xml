@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537578742' stop='1700537578757'>
+    <name>repeatOption</name>
+    <title>repeatOption</title>
+    <test-cases>
+        <test-case start='1700537578743' status='passed' stop='1700537578753'>
+            <name>should return true for repeated answer options</name>
+            <title>should return true for repeated answer options</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537578753' status='passed' stop='1700537578755'>
+            <name>should return false for unique answer options</name>
+            <title>should return false for unique answer options</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537578755' status='passed' stop='1700537578756'>
+            <name>should return false for empty options list</name>
+            <title>should return false for empty options list</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

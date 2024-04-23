@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537590338' stop='1700537591856'>
+    <name>TestList Component Tests</name>
+    <title>TestList Component Tests</title>
+    <test-cases>
+        <test-case start='1700537590341' status='passed' stop='1700537591276'>
+            <name>1. Shows alert and redirects when no tests to solve</name>
+            <title>1. Shows alert and redirects when no tests to solve</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537591276' status='passed' stop='1700537591529'>
+            <name>2. Renders tests and handles click event</name>
+            <title>2. Renders tests and handles click event</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537591529' status='passed' stop='1700537591692'>
+            <name>3. Displays multiple tests correctly</name>
+            <title>3. Displays multiple tests correctly</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537591692' status='passed' stop='1700537591853'>
+            <name>4. Displays tags correctly</name>
+            <title>4. Displays tags correctly</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

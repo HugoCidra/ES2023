@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api.utils.tokens &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api.utils.tokens</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api.utils.tokens</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">jwt</span> <span class="kn">import</span> <span class="n">encode</span><span class="p">,</span> <span class="n">decode</span><span class="p">,</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpRequest</span>
+
+<span class="n">SECRET</span> <span class="o">=</span> <span class="s2">&quot;JrjvV*pV7j5lpY4Xf*CTo_vsn1U*mpikYGJ9FHWHsM&amp;xXgMOAOj%Jd#5VslxUyUzEI4lOQUQNxB#oybe56VGFT%R5p8MEA7P#30VCsm6u&amp;eUHryW#xVt5dJwZm?UHFtld3TVKxfMgNr5h#x5njj4SJjQYYJOqUwU1KGI9OUnuUUtxLE76o5JSdG7Nh4!aRrchWEQoTzG*Kgu1YKHXWdS0_J_v0nersuDki30Nofd5eLpBmwVu53vdFzQYifVUbUGS2L7e6Fz8jbFU?3F?Y%jEmbd#Dl&amp;DefV*Pav4v%1?akD&quot;</span>
+
+
+<div class="viewcode-block" id="write_token">
+<a class="viewcode-back" href="../../../api.utils.html#api.utils.tokens.write_token">[docs]</a>
+<span class="k">def</span> <span class="nf">write_token</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the jwtoken</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (dict): information to store on the token</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bytes: the token in bytes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># duracao de validade do token</span>
+    <span class="n">expier_date</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+    
+    <span class="c1"># criacao do token</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;exp&quot;</span><span class="p">:</span> <span class="n">expier_date</span><span class="p">(</span><span class="mi">60</span><span class="p">)},</span> <span class="n">key</span><span class="o">=</span><span class="n">SECRET</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;HS256&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="verify_token">
+<a class="viewcode-back" href="../../../api.utils.html#api.utils.tokens.verify_token">[docs]</a>
+<span class="k">def</span> <span class="nf">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">verify_exp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verificar se token e valido ou nao</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        token (str): token para validar</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: &#39;True&#39; se for valido &#39;False&#39; se nao</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;verify_exp&quot;</span><span class="p">:</span> <span class="n">verify_exp</span><span class="p">}</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># if it runs with no problem means its valid</span>
+        <span class="n">decode</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">SECRET</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HS256&quot;</span><span class="p">],</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">DecodeError</span><span class="p">:</span>
+        <span class="c1"># in case we cannot decode</span>
+
+        <span class="c1"># print(token)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ExpiredSignatureError</span><span class="p">:</span>
+        <span class="c1"># in case the token validation as expired</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="extrat_token_info">
+<a class="viewcode-back" href="../../../api.utils.html#api.utils.tokens.extrat_token_info">[docs]</a>
+<span class="k">def</span> <span class="nf">extrat_token_info</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">verify_exp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extrat the stored information on the token</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        token (str): token to extrat the information of</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict | None: dictionary coded on the token</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;verify_exp&quot;</span><span class="p">:</span> <span class="n">verify_exp</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># if it runs with no problem means its valid</span>
+        <span class="k">return</span> <span class="n">decode</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">SECRET</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HS256&quot;</span><span class="p">],</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">DecodeError</span><span class="p">:</span>
+        <span class="c1"># in case we cannot decode</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+    <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ExpiredSignatureError</span><span class="p">:</span>
+        <span class="c1"># in case the token validation as expired</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="extract_token">
+<a class="viewcode-back" href="../../../api.utils.html#api.utils.tokens.extract_token">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_token</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Functions to extrat the token from the request</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): the request from django. type (django.http.HttpRequest)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str | None: return the token if its there returns &#39;None&#39; otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;authorization&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">token</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>
+    
+    <span class="k">return</span> <span class="n">token</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+/*------------------------------LOGIN/REGISTER------------------------------*/
+.logo-div{
+    display: flex;
+    justify-content: left;
+}
+
+#logo-login {
+    margin: 4rem 4rem 1rem 4rem;
+    height: auto;
+    width: 12rem;
+    overflow: hidden;
+}
+
+/*FORMULÁRIO*/
+.caixa-form { /* CAIXA DE CADA FORM INDIVIDUAL*/
+    width: 36rem;
+    margin: 1rem auto 1rem auto;
+    padding: 4rem;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: var(--shadow);
+
+}
+
+.title-form{
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    display: block;
+    letter-spacing: 0.2rem;
+    text-align: center;
+    font-size: 3.5rem;
+}
+
+
+.texto-info{/*TEXTO A EXPLICAR O PROPÓSITO DO FORM*/
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+    display: block;
+    text-align: center;
+    margin: 2% auto 2% auto;
+    font-size: 1.1rem;
+
+    > p {
+        color: red;
+    }
+}
+
+.sign-up{
+   background-color: transparent;
+   border: none;
+    color: var(--logo-blue);
+    margin: 2% auto 2% auto;
+    font-size: 1.6rem;  
+}
+
+.sign-up:hover{
+    text-decoration: underline;
+}
+
+.formulario{
+    .button-default{
+        display: block;
+        margin: 2rem auto 0 auto;
+    }
+}

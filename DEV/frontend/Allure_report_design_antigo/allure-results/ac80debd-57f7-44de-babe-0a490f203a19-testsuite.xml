@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537576889' stop='1700537577330'>
+    <name>Unit_testing_frontend\Tests_grupo4\chooseCorrect.test.js</name>
+    <title>Unit_testing_frontend\Tests_grupo4\chooseCorrect.test.js</title>
+    <test-cases>
+        <test-case start='1700537576889' status='passed' stop='1700537576899'>
+            <name>chooseCorrect should return true for a valid set of options</name>
+            <title>chooseCorrect should return true for a valid set of options</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537576899' status='passed' stop='1700537577329'>
+            <name>chooseCorrect should return false if there are no options</name>
+            <title>chooseCorrect should return false if there are no options</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

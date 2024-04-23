@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537576715' stop='1700537577162'>
+    <name>characterInput</name>
+    <title>characterInput</title>
+    <test-cases>
+        <test-case start='1700537576717' status='passed' stop='1700537576730'>
+            <name>should return true for valid characters</name>
+            <title>should return true for valid characters</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537576731' status='passed' stop='1700537576755'>
+            <name>should return true for an empty string</name>
+            <title>should return true for an empty string</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537576755' status='passed' stop='1700537577160'>
+            <name>should return false for invalid characters</name>
+            <title>should return false for invalid characters</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537577160' status='passed' stop='1700537577161'>
+            <name>should return true for a valid string with special characters</name>
+            <title>should return true for a valid string with special characters</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

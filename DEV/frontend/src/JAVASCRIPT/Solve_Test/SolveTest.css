@@ -1,0 +1,266 @@
+/*Esse arquivo de CSS serve para modificar o display da pagina de soluçao do teste*/
+/* ajuste para input radio*/
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .radio-toolbar {
+    width: 100%;
+    margin: 15px;
+    text-align: start;
+    justify-content: start;
+  }
+  .column {
+    width: 100%;
+  }
+  
+  .radio-toolbar input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+  
+  .radio-toolbar label {
+    display: block; /* Changed to block for vertical display */
+    background-color: #fff;
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+    border: 2px solid rgb(230, 230, 230);
+    border-radius: 50px;
+    margin-bottom: 8px; /* Added margin to separate vertically */
+    width: 100%;
+    color: #535353;
+  }
+  
+  .radio-toolbar label:hover {
+    background-color: var(--light-grey);
+    cursor: pointer;
+    transition-duration: 0.3s;
+  }
+  
+  .radio-toolbar label:active{
+      transform: translateY(2px);
+  }
+  
+  .radio-toolbar input[type="radio"]:checked + label {
+    background-color: var(--logo-blue);
+    border-color:rgb(58, 157, 238);
+    color: white;
+  }
+  
+  
+  /*Fim de ajuste para input radio*/
+  .container_solve_test {
+    margin: auto;
+    margin-top: 4rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .container_solve_test > * {
+    width: 100%;
+    gap: 10%;
+    flex-wrap: wrap;
+    display: flex;
+  }
+  
+  .container_solve_test_options {
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 17%;
+    margin-left: 2%;
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+  }
+  
+  .contagem-quiz{
+    font-size: 20px;
+    color:rgb(60, 59, 59);
+    justify-content: center;
+    display: flex;
+    width: 100%;
+  }
+  
+  .submitted{
+    pointer-events: none;
+  }
+
+  #justification_box {
+    box-shadow: none;
+    background-color:transparent;
+    font-size: 200%;
+    text-align: start;
+    padding:0px;
+  }
+
+  .solve_test_selecionada {
+    border: solid black 0.25rem !important;
+  }
+  
+  .solve_test_correto {
+    background-color:var(--green-accept) !important;
+    color:#535353 !important;
+
+  }
+  
+  .solve_test_errado {
+    background-color: var(--red-reject) !important;
+    color:#535353 !important;
+  }
+  
+  .container_solve_test_buttons {
+    margin: auto;
+    margin-bottom: 3%;
+    justify-content: center;
+    display: flex;
+  }
+  
+  .container_home{
+    margin: auto;
+    margin-bottom: 3%;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  .container_points{
+    width: 100%;
+    max-width: 95rem;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  
+  
+  
+  .box{
+      box-shadow: var(--shadow); ;
+      font-size: 20px;
+      margin-bottom: 1%;
+      padding: 20px;
+      background: rgb(255, 255, 255);
+      border:none;
+      border-radius: 200px;
+      text-align: center;
+      color: #535353;
+      align-items: center;
+      justify-content: center;
+      width: 70%;
+      max-width: 95rem;
+    }
+  
+  
+  
+  .grid * {
+      box-sizing: border-box;
+      
+  }
+  
+  .questions_justification{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    max-width: 95rem;
+  }
+  .grid-container{
+      display: flex;
+      justify-content: start;
+      flex-flow: row wrap;
+      column-gap: 10%;
+      row-gap: 3rem;
+      
+      background-color: white;
+      border-radius: 2rem;
+      box-shadow: var(--shadow);
+      
+      padding: 2rem;
+      margin: 2rem auto;
+      width: 100%;
+     max-width: 95rem;
+  
+  } 
+  
+  
+  /* Style for the navigation container */
+  .navigation-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Style for the arrow buttons */
+  .arrow-button {
+    background-color: transparent;
+    border: transparent !important;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 25rem;
+    z-index: 2;
+  }
+  
+  .arrow-button:active{
+    transform: translateY(2px);
+  }
+
+  /* Positioning the left arrow */
+  .arrow-button.left {
+    left: 6%; /* Position to the left outside of the quiz container */
+  }
+  
+  /* Positioning the right arrow */
+  .arrow-button.right {
+    right: 6%; /* Position to the right outside of the quiz container */
+  }
+  
+  /* Style for the arrow icons, assuming you're using a font icon library like FontAwesome */
+  .arrow-button i {
+    color: #333333; /* Dark grey color for the icon */
+  }
+
+  /* Example using Unicode arrows if you're not using an icon library */
+  .arrow-button.left::before {
+    content: '❮'; /* Unicode left arrow */
+    font-size: 70px;
+  }
+  
+  .arrow-button.right::before {
+    content: '❯'; /* Unicode right arrow */
+    font-size: 70px;
+  }
+  
+  /* Disabling buttons when they are not active */
+  .arrow-button[disabled] {
+    opacity: 0.5; /* Half opacity to show it's disabled */
+    cursor: default; /* Override the cursor to default */
+    pointer-events: none; /* Prevent clicking on the button */
+  }
+  .arrow-button[disabled]:active {
+    transform: none; /* Remove the hover effect */
+  }
+
+
+  .manypoints{
+    /*verticaly align text to center*/
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    font-size: 1.6rem;
+    text-align: center;
+
+    font-weight: 1000;
+    letter-spacing: 0.1rem;
+    width: 25rem;
+    height: 5.2rem;
+    border-radius: 10px;
+    background-color: transparent; 
+  }

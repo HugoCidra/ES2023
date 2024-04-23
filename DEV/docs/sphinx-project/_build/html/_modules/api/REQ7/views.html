@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api.REQ7.views &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api.REQ7.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api.REQ7.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpRequest</span><span class="p">,</span> <span class="n">JsonResponse</span><span class="p">,</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">TextIO</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">Question</span><span class="p">,</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">Option</span><span class="p">,</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">tokens</span>
+
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">xmltodict</span>
+
+<div class="viewcode-block" id="load_info">
+<a class="viewcode-back" href="../../../api.REQ7.html#api.REQ7.views.load_info">[docs]</a>
+<span class="k">def</span> <span class="nf">load_info</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;View to load a xml file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): request</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        _type_: Json response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># check if method is POST (create)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">405</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Method (</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">) not alowed, only POST&quot;</span><span class="p">})</span>
+
+    <span class="c1"># check user auth</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">extract_token</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;User not loged in&quot;</span><span class="p">})</span>
+
+
+    <span class="c1"># check token validation</span>
+    <span class="n">token_info</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">extrat_token_info</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># if not tokens.verify_token(token):</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;Expired session&quot;</span><span class="p">})</span>
+    
+
+    <span class="c1"># parsing do ficheiro</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;A&amp;D&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;AD&quot;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">505</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)})</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># check for format of xml in perguntas part</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">perguntas</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;quizzess&#39;</span><span class="p">][</span><span class="s1">&#39;perguntas&#39;</span><span class="p">][</span><span class="s1">&#39;pergunta&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">505</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s1">&#39;wrong format in perguntas&#39;</span><span class="p">})</span>
+    <span class="k">del</span> <span class="n">obj</span>
+    
+    <span class="c1"># get user to associate</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">token_info</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># if there is just one pergunta it saves as a dict and not list (need to transform)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">perguntas</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">perguntas</span> <span class="o">=</span> <span class="p">[</span><span class="n">perguntas</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">pergunta</span> <span class="ow">in</span> <span class="n">perguntas</span><span class="p">:</span>
+        <span class="c1"># criar a pergunta</span>
+        <span class="n">temp_question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">pergunta</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># check for format of xml in tags part</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">temp_tag_list</span> <span class="o">=</span> <span class="n">pergunta</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">][</span><span class="s1">&#39;tag&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">505</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s1">&#39;wrong format in tags&#39;</span><span class="p">})</span>
+
+        <span class="c1"># if there is just one tag it saves as a string and not list (need to transform)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">temp_tag_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">temp_tag_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">temp_tag_list</span><span class="p">]</span>
+
+        <span class="c1"># associar as tags</span>
+        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">temp_tag_list</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">tag</span><span class="o">==</span><span class="s2">&quot;AD&quot;</span><span class="p">:</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;A&amp;D&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">temp_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">Tag</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+                <span class="c1"># if it doesnt find tag creats it</span>
+                <span class="n">temp_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+                <span class="n">temp_tag</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            
+            <span class="n">temp_question</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">temp_tag</span>
+            <span class="c1"># temp_question.tags.add(temp_tag)</span>
+        
+        <span class="n">temp_question</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># criar as respostas</span>
+        <span class="k">if</span> <span class="n">pergunta</span><span class="p">[</span><span class="s1">&#39;respostas&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">temp_opts_list</span> <span class="o">=</span> <span class="n">pergunta</span><span class="p">[</span><span class="s1">&#39;respostas&#39;</span><span class="p">][</span><span class="s1">&#39;resposta&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">temp_opts_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="n">temp_opts_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">temp_opts_list</span><span class="p">]</span>
+        
+        <span class="c1"># print(type(temp_opts_list[&#39;resposta&#39;]))</span>
+        <span class="k">for</span> <span class="n">resp</span> <span class="ow">in</span> <span class="n">temp_opts_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;justificacao&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;justificacao&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            
+            <span class="n">temp_resp</span> <span class="o">=</span> <span class="n">Option</span><span class="p">(</span>
+                <span class="n">question</span><span class="o">=</span><span class="n">temp_question</span><span class="p">,</span>
+                <span class="n">body</span><span class="o">=</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;designacao&#39;</span><span class="p">],</span>
+                <span class="n">is_correct</span><span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;valor_logico&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">,</span>
+                <span class="n">justification</span><span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;justificacao&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">temp_resp</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;satus&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="send_info">
+<a class="viewcode-back" href="../../../api.REQ7.html#api.REQ7.views.send_info">[docs]</a>
+<span class="k">def</span> <span class="nf">send_info</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;view to send questions in xml format</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): request</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        _type_: HttpResponse with file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># check if method is GET</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">405</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Method (</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">) not alowed, only GET&quot;</span><span class="p">})</span>
+
+    <span class="c1"># check user auth</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">extract_token</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;User not loged in&quot;</span><span class="p">})</span>
+
+
+    <span class="c1"># check token validation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tokens</span><span class="o">.</span><span class="n">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span> <span class="s2">&quot;Expired session&quot;</span><span class="p">})</span>
+
+    <span class="c1"># get &#39;json&#39; format of questions    </span>
+    <span class="n">perguntas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        
+        <span class="c1">#respostas</span>
+        <span class="n">temp_resposta</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">option_set</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">temp_resposta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;designacao&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+                <span class="s1">&#39;justificacao&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">justification</span><span class="p">,</span>
+                <span class="s1">&#39;valor_logico&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">is_correct</span><span class="p">)</span>
+            <span class="p">})</span>
+        <span class="n">temp_pergunta</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;descricao&#39;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">value</span><span class="p">]},</span>  <span class="c1"># so uma tag obrigatoria</span>
+            <span class="s1">&#39;respostas&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;resposta&#39;</span><span class="p">:</span> <span class="n">temp_resposta</span><span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="c1"># check if this question is equal to other</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">temp_pergunta</span> <span class="o">==</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">perguntas</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;repetida&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">perguntas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_pergunta</span><span class="p">)</span>
+    
+    <span class="c1"># total dict</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;quizzess&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;@xmlns:xsi&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema-instance&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;perguntas&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;pergunta&#39;</span><span class="p">:</span> <span class="n">perguntas</span><span class="p">}</span>
+        <span class="p">}}</span>
+
+    <span class="c1"># transform dict in to xml</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">unparse</span><span class="p">(</span>
+        <span class="n">resp</span><span class="p">,</span>
+        <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># to format with tabs and enters</span>
+        <span class="n">newl</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span>  <span class="c1"># CRLF format</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;tag&gt;AD&lt;/tag&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;tag&gt;A&amp;D&lt;/tag&gt;&quot;</span><span class="p">)</span>
+        
+    <span class="n">response</span> <span class="o">=</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;status&#39;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="n">temp</span><span class="p">})</span>
+    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;attachmen&#39;</span>
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="temp">
+<a class="viewcode-back" href="../../../api.REQ7.html#api.REQ7.views.temp">[docs]</a>
+<span class="k">def</span> <span class="nf">temp</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;temp.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="n">perguntas</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;quizzess&#39;</span><span class="p">][</span><span class="s1">&#39;perguntas&#39;</span><span class="p">][</span><span class="s1">&#39;pergunta&#39;</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">obj</span>
+    
+    <span class="n">pprint</span><span class="p">(</span><span class="n">perguntas</span><span class="p">)</span>
+
+    <span class="c1"># domtree: xml.dom.minidom.Document = xml.dom.minidom.parse(&quot;temp.xml&quot;)</span>
+    <span class="c1"># group: xml.dom.minidom.Element = domtree.documentElement</span>
+    
+    <span class="c1"># quizzes: List[xml.dom.minidom.Element] = group.getElementsByTagName(&quot;pergunta&quot;) #[0].getElementsByTagName(&quot;pergunta&quot;)</span>
+
+    <span class="c1"># pprint(quizzes)</span>
+    <span class="c1"># for i in quizzes:</span>
+    <span class="c1">#     print(i.getElementsByTagName(&quot;descricao&quot;)[0].nodeValue)</span>
+    <span class="c1">#     print(i.childNodes[0].nodeValue)</span>
+    <span class="c1">#     # print(type(i))</span>
+    <span class="c1"># obj = untangle.parse(resource)</span>
+    <span class="c1"># print(obj)</span>
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({})</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

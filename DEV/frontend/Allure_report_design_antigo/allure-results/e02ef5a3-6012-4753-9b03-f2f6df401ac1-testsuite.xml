@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537590841' stop='1700537590976'>
+    <name>DataFetchGet</name>
+    <title>DataFetchGet</title>
+    <test-cases>
+        <test-case start='1700537590858' status='passed' stop='1700537590914'>
+            <name>should fetch data successfully with token</name>
+            <title>should fetch data successfully with token</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590956' status='passed' stop='1700537590965'>
+            <name>should fetch data with token and query params</name>
+            <title>should fetch data with token and query params</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590965' status='passed' stop='1700537590972'>
+            <name>should fetch data without token</name>
+            <title>should fetch data without token</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590972' status='passed' stop='1700537590975'>
+            <name>should handle request failure</name>
+            <title>should handle request failure</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

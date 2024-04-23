@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>testing.REQ5 package &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="testing.REQ7 package" href="testing.REQ7.html" />
+    <link rel="prev" title="testing.REQ4 package" href="testing.REQ4.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">main</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="testing.html">testing package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="testing.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ1.html">testing.REQ1 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ2.html">testing.REQ2 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ3.html">testing.REQ3 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ4.html">testing.REQ4 package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">testing.REQ5 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-testing.REQ5.test_5_1_Buttons">testing.REQ5.test_5_1_Buttons module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-testing.REQ5.test_5_2_Submit">testing.REQ5.test_5_2_Submit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-testing.REQ5.test_5_3_choose_test">testing.REQ5.test_5_3_choose_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-testing.REQ5">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ7.html">testing.REQ7 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.REQ8.html">testing.REQ8 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing.html">testing.unit_testing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.unit_testing1.html">testing.unit_testing1 package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#module-testing.Test_All">testing.Test_All module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#module-testing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="testing.html">testing package</a></li>
+      <li class="breadcrumb-item active">testing.REQ5 package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/testing.REQ5.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing-req5-package">
+<h1>testing.REQ5 package<a class="headerlink" href="#testing-req5-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-testing.REQ5.test_5_1_Buttons">
+<span id="testing-req5-test-5-1-buttons-module"></span><h2>testing.REQ5.test_5_1_Buttons module<a class="headerlink" href="#module-testing.REQ5.test_5_1_Buttons" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_1_Buttons.goto_ChooseTest">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_1_Buttons.</span></span><span class="sig-name descname"><span class="pre">goto_ChooseTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_1_Buttons.html#goto_ChooseTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_1_Buttons.goto_ChooseTest" title="Link to this definition"></a></dt>
+<dd><p>Navigates to the Choose Test page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the navigation was successful, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_1_Buttons.goto_SolveTest">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_1_Buttons.</span></span><span class="sig-name descname"><span class="pre">goto_SolveTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_1_Buttons.html#goto_SolveTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_1_Buttons.goto_SolveTest" title="Link to this definition"></a></dt>
+<dd><p>Checks if there are test to solve and solves one</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a test was solved, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_1_Buttons.login">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_1_Buttons.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_1_Buttons.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_1_Buttons.login" title="Link to this definition"></a></dt>
+<dd><p>Logs into the website with a valid Solver account</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception if the login page could not be loaded</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_1_Buttons.test_buttons">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_1_Buttons.</span></span><span class="sig-name descname"><span class="pre">test_buttons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_1_Buttons.html#test_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_1_Buttons.test_buttons" title="Link to this definition"></a></dt>
+<dd><p>Test all 8 buttons in the Solve Test page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of buttons that worked</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-testing.REQ5.test_5_2_Submit">
+<span id="testing-req5-test-5-2-submit-module"></span><h2>testing.REQ5.test_5_2_Submit module<a class="headerlink" href="#module-testing.REQ5.test_5_2_Submit" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.Cancel_Button">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">Cancel_Button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#Cancel_Button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.Cancel_Button" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for testing the Cancel Button on solving test page (&quot;/solve-test/&lt;id&gt;&quot;)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the function test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.Homepage_Button_Cancel">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">Homepage_Button_Cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#Homepage_Button_Cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.Homepage_Button_Cancel" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for testing the cancelation of the alert that appears when the user clicks on homepage button on solving test page (&quot;/solve-test/&lt;id&gt;&quot;) after submiting the test (a precondition for this test is that the test was submitted)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the funciton test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.Homepage_Button_Ok">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">Homepage_Button_Ok</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#Homepage_Button_Ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.Homepage_Button_Ok" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for testing the confirmation of the alert that appears when the user clicks on homepage button on solving test page (&quot;/solve-test/&lt;id&gt;&quot;) after submiting the test (a precondition for this test is that the test was submitted)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the funciton test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.NoAnswers">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">NoAnswers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#NoAnswers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.NoAnswers" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for testing the submition with no answers selected on solving test page (&quot;/solve-test/&lt;id&gt;&quot;)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the funciton test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.goto_ChooseTest">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">goto_ChooseTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#goto_ChooseTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.goto_ChooseTest" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for going to the Choose Test page from Home page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the function test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None if the Choose Test page is loaded, False if a exeption is raised</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.goto_SolveTest">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">goto_SolveTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#goto_SolveTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.goto_SolveTest" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for when in the Choose Test page, check if there are tests and select the first one</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the funciton test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a test was selected and if the page link is correct, False if a exeption is raised (no tests available) or the page link is incorrect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.login">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.login" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for login in the application with a valid Solver account</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>driver</strong> (<em>webdriver</em>) -- Selenium webdriver created in the function test_all()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>If the page loaded have a title difrent from &quot;Login Page&quot;</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_2_Submit.test_all">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_2_Submit.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_2_Submit.html#test_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_2_Submit.test_all" title="Link to this definition"></a></dt>
+<dd><p>Function responsible for calling all the tests of this file and print the results</p>
+<p>1 - login with a valid Solver account</p>
+<p>2 - go to the choose test page with the list of all test available to solve</p>
+<p>3 - go to a solve test page /solve-test/&lt;id&gt;</p>
+<p>4 - test the cancel button tha apears when the user is on the solve test page /solve-test/&lt;id&gt; if it works correctly the user will be redirected to the homepage</p>
+<p>5 - go to the choose test page with the list of all test available to solve</p>
+<p>6 - go to a solve test page /solve-test/&lt;id&gt;</p>
+<p>7 - test the submition of a test with no answers selected on the solve test page /solve-test/&lt;id&gt; the user will remain on the same page and the text &quot;YOU GOT 0 POINTS&quot; will appear where the submit button was</p>
+<p>8 - test the cancelation of the alert that appears when the user clicks on homepage button if it works correctly the user will remain on the same page</p>
+<p>9 - test the confirmation of the alert that appears when the user clicks on homepage button if it works correctly the user will be redirected to the homepage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> -- </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of tests passed</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-testing.REQ5.test_5_3_choose_test">
+<span id="testing-req5-test-5-3-choose-test-module"></span><h2>testing.REQ5.test_5_3_choose_test module<a class="headerlink" href="#module-testing.REQ5.test_5_3_choose_test" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_3_choose_test.choose_test">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_3_choose_test.</span></span><span class="sig-name descname"><span class="pre">choose_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_3_choose_test.html#choose_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_3_choose_test.choose_test" title="Link to this definition"></a></dt>
+<dd><p>Chooses a test to solve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a test was chosen, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_3_choose_test.goto_ChooseTest">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_3_choose_test.</span></span><span class="sig-name descname"><span class="pre">goto_ChooseTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_3_choose_test.html#goto_ChooseTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_3_choose_test.goto_ChooseTest" title="Link to this definition"></a></dt>
+<dd><p>Navigates to the Choose Test page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the navigation was successful, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_3_choose_test.goto_SolveTest">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_3_choose_test.</span></span><span class="sig-name descname"><span class="pre">goto_SolveTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_3_choose_test.html#goto_SolveTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_3_choose_test.goto_SolveTest" title="Link to this definition"></a></dt>
+<dd><p>Checks if there are tests to solve and solves one</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a test was solved, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_3_choose_test.login">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_3_choose_test.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_3_choose_test.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_3_choose_test.login" title="Link to this definition"></a></dt>
+<dd><p>Logs into the website with a valid Solver account</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception if the login page could not be loaded</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="testing.REQ5.test_5_3_choose_test.test_buttons">
+<span class="sig-prename descclassname"><span class="pre">testing.REQ5.test_5_3_choose_test.</span></span><span class="sig-name descname"><span class="pre">test_buttons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/testing/REQ5/test_5_3_choose_test.html#test_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#testing.REQ5.test_5_3_choose_test.test_buttons" title="Link to this definition"></a></dt>
+<dd><p>Test all 8 buttons in the Solve Test page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Driver</strong> -- a Selenium WebDriver object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of buttons that worked</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-testing.REQ5">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-testing.REQ5" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="testing.REQ4.html" class="btn btn-neutral float-left" title="testing.REQ4 package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.REQ7.html" class="btn btn-neutral float-right" title="testing.REQ7 package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

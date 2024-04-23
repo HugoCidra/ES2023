@@ -1,0 +1,153 @@
+/*Esse arquivo serve para modificar o display da pagina*/
+.container_geral {
+    display: flex;
+    
+    height: 100%;
+    width: 100%;
+
+    justify-content: space-evenly;
+    
+    align-content: center; /*eixo x*/
+    
+    flex-flow: row wrap; /* direction and wrap*/
+    
+    margin-top: 5rem;
+    margin-bottom: 4rem;
+}
+
+.container_left {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+    
+    justify-content: space-between;
+
+    /*align-items: space-between; /*eixo y*/
+    
+    flex-direction: column;
+    
+    padding-left: 2%;
+    padding-right: 2%;
+    
+}
+.container_right {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+
+    justify-content: space-between;
+    align-items: stretch;
+    /*align-items: space-between; /*eixo y*/
+    
+    flex-direction: column;
+    gap: 2rem;    
+}
+
+.question{
+    display: flex;
+    
+    /*height: 65px;*/
+    border-radius: 2rem;
+    font-size: 2rem;
+    justify-content: center;
+    padding: 15px ;
+    margin: 2rem;
+}
+.options_container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    margin: 2rem;
+    padding:3rem;
+
+    height: 50rem;
+    border-radius: 2rem;
+}
+.option_container{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+
+    padding: 1.5rem;
+    
+    width: 50%;
+    
+    background-color: transparent;  
+}
+.body_container{
+    display: flex;
+    height: 35%;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    background-color: var(--light-grey); 
+    align-items: center;
+    padding: 10px;
+    
+    
+}
+.justif_container{
+    font-family: "Century Gothic", sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 55%;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    border: solid 2px var(--light-grey);
+    background-color: transparent;  
+    padding: 1rem;
+}
+.accepted, .rejected{
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+
+.boxRQ{
+    background: #FFFFFF;
+    box-shadow: var(--shadow);
+
+}
+
+.container_question_state {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 2rem;
+    padding: 20px ;
+    text-align: center;
+
+    margin: 2rem;
+}
+.correto{
+    background-color: var(--green-accept);
+}
+
+.justify_quiz_area{
+    font-family: "Century Gothic";
+    display: flex;
+    height: 30rem;
+    margin: 2rem;
+}
+
+textarea {
+  min-height: 30%;
+  resize: none;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  color: #666;
+  
+  font-size: 1.8rem;
+  border: none;
+}
+
+textarea::placeholder{
+  font-style: italic;
+}
+textarea:focus-visible{ 
+    border:none;
+    outline:  0.1rem solid rgb(58, 157, 238);;
+}

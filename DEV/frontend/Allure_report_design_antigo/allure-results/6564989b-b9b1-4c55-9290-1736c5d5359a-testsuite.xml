@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537591045' stop='1700537591056'>
+    <name>Unit_testing_frontend\Tests_grupo5\DataFetchGet.test.js</name>
+    <title>Unit_testing_frontend\Tests_grupo5\DataFetchGet.test.js</title>
+    <test-cases>
+        <test-case start='1700537591045' status='passed' stop='1700537591050'>
+            <name>should make an unauthenticated request if token is not present</name>
+            <title>should make an unauthenticated request if token is not present</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537591051' status='passed' stop='1700537591055'>
+            <name>should fetch data without token and with query params</name>
+            <title>should fetch data without token and with query params</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

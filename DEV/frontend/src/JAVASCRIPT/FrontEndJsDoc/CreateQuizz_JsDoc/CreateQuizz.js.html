@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CreateQuizz.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CreateQuizz.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component, useEffect, useState } from "react";
+import "../../IMAGES/Logo.png";
+import "../../IMAGES/Icon.png";
+import "../../CSS/Create_Quiz/Create_Quizz.css";
+import "../../CSS/Review_Quiz/button.css";
+import "../../CSS/index.css";
+import DataFetchPost from "../../DataFetchFunctions/DataFetchPost";
+import DataFetchGet from "../../DataFetchFunctions/DataFetchGet";
+import { useParams } from "react-router-dom";
+import NavBar from '.././NavBar/NavBar';
+
+/**
+ * Function to check if there are repeated options.
+ * @param {Array} listOptions - List of answer options.
+ * @returns {boolean} - Returns true if there are repeated options, otherwise false.
+ */
+
+function repeatOption(listOptions) {
+  if (listOptions.length&lt;6) return;
+  for (let i=0;i&lt;listOptions.length;i++){
+    for (let a=0;a&lt;listOptions.length;a++){
+      if(a!==i){
+        if (listOptions[i].body===listOptions[a].body){
+          alert("ERROR: Repeated answer options")
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+/**
+ * Function to validate if the input contains valid characters.
+ * @param {string} inputValid - The input string to validate.
+ * @returns {boolean} - Returns true if the input contains valid characters, otherwise false.
+ */
+
+function characterInput(inputValid) {
+    var characters = /[A-Za-z0-9?!.+-_,: ]+$/
+    if (inputValid.match(characters)) {
+    // alert("Quiz Submitted!");
+    return true;}
+    else if (inputValid.length===0) return true;
+    else {
+    alert("Please input valid characters.");
+    console.log("Please input valid characters.")
+    return false;
+  }
+}
+
+/**
+ * Function to validate if a question has been submitted.
+ * @param {string} iQuestao - The question input.
+ * @returns {boolean} - Returns true if a question has been submitted, otherwise false.
+ */
+
+function questao(iQuestao) {
+  if(iQuestao.length===0) {
+      alert('ERROR: You have to submit your question.');
+      return false;
+  } else {
+    return true;
+  }
+}
+
+/**
+ * Function to validate if a justification has been submitted.
+ * @param {string} explicacao - The justification input.
+ * @returns {boolean} - Returns true if a justification has been submitted, otherwise false.
+ */
+
+function justification(explicacao) {
+  if(explicacao.length===0) {
+      alert('ERROR: You have to submit your justification.');
+      return false;
+  } else {
+    return true;
+  }
+}
+
+/**
+ * Function to ensure exactly one option is marked as correct.
+ * @param {Array} options - List of answer options.
+ * @returns {boolean} - Returns true if exactly one option is marked as correct, otherwise false.
+ */
+
+function chooseCorrect(options){
+  let contador=0;
+  if (options.length&lt;6) return;
+  for (let i=0;i&lt;options.length;i++){
+    if (options[i]["is_correct"]===true) contador+=1;
+  }
+  if(contador!==1){
+    alert('ERROR: You have to choose a unique correct option')
+    return false;
+  }
+  else return true;
+}
+
+/**
+ * Function to validate if exactly six options have been submitted.
+ * @param {Array} inputOption - List of answer options.
+ * @returns {boolean} - Returns true if exactly six options have been submitted, otherwise false.
+ */
+
+function sixOptions(inputOption) {
+  if(inputOption.length&lt;6) {
+    alert("ERROR: You have to submit six options");
+    return false;
+  }
+  for (let i = 0; i &lt; 6; i++) {
+    if(inputOption[i].body==="") {
+        alert("ERROR: You have to submit six options");
+        return false;
+      } 
+  }
+  return true;
+}
+
+/**
+ * Function to save quiz data via a POST request.
+ * @param {string} body - The question input.
+ * @param {Array} options - List of answer options.
+ * @param {string} opt_text - The optional text input.
+ * @param {string} tag - The selected tag.
+ * @param {number} question_id - The question ID.
+ */
+
+async function button_save(body, options,opt_text, tag,question_id) {
+  let result = await DataFetchPost("api/REQ3/save-quiz", {
+      question_id: question_id,
+      body: body,
+      options: options,
+      explanation: "explanation",
+      opt_text: opt_text,
+      tag:tag
+  });
+  console.log(result);
+}
+
+/**
+ * Function to submit quiz data via a POST request.
+ * @param {string} body - The question input.
+ * @param {Array} options - List of answer options.
+ * @param {string} opt_text - The optional text input.
+ * @param {string} tag - The selected tag.
+ * @param {number} question_id - The question ID.
+ * @returns {Promise&lt;boolean>} - Returns a promise that resolves to true if the quiz data is submitted successfully, otherwise false.
+ */
+
+async function button_submit(body, options,opt_text, tag,question_id) {
+  if(questao(body) &amp;&amp; !repeatOption(options) &amp;&amp; sixOptions(options) &amp;&amp; chooseCorrect(options)) {
+    let result = await DataFetchPost("api/REQ3/submit-quiz", {
+      question_id: question_id,
+      body: body,
+      options: options,
+      explanation: "",
+      opt_text: opt_text,
+      tag:tag
+    });
+    return true;
+  }
+  else return false;
+}
+
+/**
+ * Component to manage saved and submitted messages.
+ * @param {string} body - The question input.
+ * @param {Array} options - List of answer options.
+ * @param {string} opt_text - The optional text input.
+ * @param {string} tag - The selected tag.
+ * @param {number} question_id - The question ID.
+ * @returns {JSX.Element} - Returns a JSX element for managing saved and submitted messages.
+ */
+
+const Botao = (body, options,opt_text, tag,question_id) => {
+  const [state, setState] = useState({
+    showMessageSaved: false,
+    showMessageSubmitted: false,
+  });
+
+
+/**
+  * Event handler for the "SAVE" button click. It saves quiz data and shows a "Quiz Saved" message.
+  */
+
+  function onButtonClickHandler1() {
+    button_save(body, options,opt_text, tag,question_id);
+    setState({ showMessageSaved: true });
+  }
+
+/*
+  Calls the function to submit the quiz data and handles the result
+*/
+
+  function onButtonClickHandler2() {
+    console.log(button_submit(body, options,opt_text, tag,question_id).then((value)=>
+    {
+      if(value===true){
+        setState({ showMessageSubmitted: true });
+        setTimeout(()=>{window.location.href = "/"},500)
+      }
+      else{
+        setState({ showMessageSubmitted: false})
+      }
+    }))    
+    }  
+  return (
+    &lt;div>
+      &lt;h2>
+        {" "}
+        {state.showMessageSubmitted &amp;&amp; &lt;div className="alert">Quiz Submitted!&lt;/div>}
+      &lt;/h2>
+      &lt;h2> {state.showMessageSaved &amp;&amp; &lt;div className="alert">Quiz Saved!&lt;/div>}&lt;/h2>
+
+      &lt;div className="container_para_botoes_save_submit_cancel">
+        &lt;div className="button-box">
+          &lt;a
+            href="/" //redirect to drafts
+            target="_self"
+            rel="noopener"
+          >
+            &lt;input className="button cancel" value="CANCEL" />
+          &lt;/a>
+        &lt;/div>
+
+        &lt;div className="button-box">
+          &lt;a
+            href="/" //redirect to drafts
+            target="_self"
+            rel="noopener"
+          >
+            &lt;input className="button submit" onClick={onButtonClickHandler1} value="SAVE" />
+          &lt;/a>
+        &lt;/div>
+
+        &lt;div className="button-box">
+          {/* &lt;a
+            href="/" //redirect to drafts
+            target="_self"
+            rel="noopener"
+          > */}
+            &lt;input
+              className="button submit"
+              onClick={onButtonClickHandler2}
+              value="SUBMIT"
+            />
+          {/* &lt;/a> */}
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+
+/**
+ * Component to handle and render a question input field.
+ *
+ * @param {string} body - The current value of the question input.
+ * @param {function} setBody - A function to set the value of the question input.
+ *
+ * @returns {JSX.Element} - Returns a JSX element representing the question input field.
+ */
+
+const Question = (body, setBody) => {
+   
+  /**
+   * Handles the change in the question input field and sets the question body.
+   *
+   * @param {Event} e - The event object representing the change in the input field.
+   */
+
+  function handleQuestion(e) {
+    if (characterInput(e.target.value)) {       //Validates and sets the question body
+      setBody(e.target.value);
+    }
+  }
+  return (
+    &lt;div>
+      {/*--------FIELD PARA PERGUNTA--------*/}
+      &lt;div>
+        &lt;label htmlFor="question" />
+        &lt;input className="box pergunta"
+          name="question"
+          id="question"
+          placeholder="What's your question?"
+          required=""
+          value = {body}
+          onChange={(e) => handleQuestion(e)}
+        />
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+/**
+ * Component to handle each option input.
+ * @param {Array} options - List of answer options.
+ * @param {function} setOptions - Function to set the list of answer options.
+ * @param {number} id - The option ID.
+ * @param {boolean} newQuestion - Indicates whether it's a new question.
+ * @returns {JSX.Element} - Returns a JSX element for handling each option input.
+ */
+
+const Option = (options,setOptions,id,newQuestion) => {
+  const [option,setOption]=useState({id:id,body:"",is_correct:false,justification:""})
+  useEffect(()=>{
+      //Load quiz option data
+      if(newQuestion===false){
+        if(options[id-1]!==undefined){
+          let option_={};
+          option_.id=id
+          option_.body=options[id-1].body
+          option_.is_correct=options[id-1].is_correct
+          option_.justification=options[id-1].justification
+          setOption(option_)
+          options[id-1]=option_;
+        }
+      }
+      else options[id-1]=option;
+},[newQuestion,id,options])
+  
+/**
+ * Handles the change in the option's body and updates the options list.
+ *
+ * @param {Event} e - The event object representing the change in the input field.
+ */
+
+  function handleChangeOption(e) {
+    let option_={id:option.id,body:e.target.value,is_correct:option.is_correct,justification:option.justification}
+    setOption({id:option.id,body:e.target.value,is_correct:option.is_correct,justification:option.justification})
+    if (characterInput(e.target.value)) {
+      let options_ = options
+      options_[id - 1] = option_;
+      setOptions(options_)
+    } 
+  }
+
+
+  /**
+ * Handles the change in the option's correctness state and updates the options list.
+ *
+ * @param {Event} e - The event object representing the change in the checkbox state.
+ */
+
+  function checkbox(e) {
+    let option_={id:option.id,body:option.body,is_correct:e.target.checked,justification:option.justification}
+    setOption({id:option.id,body:option.body,is_correct:e.target.checked,justification:option.justification})
+    for (let i=0;i&lt;options.length;i++){
+      if(i!==id-1){
+        if(options[i].is_correct===true) options[i].is_correct=false;
+      }
+    }
+    let options_ = options;
+    options_[id - 1]=option_
+    setOptions(options_);
+  }
+
+
+/**
+ * Handle change in the justification for an option.
+ * @param {Event} e - The event object from the input field.
+ * @returns {JSX.Element}
+ */
+
+  function handleChangeJustification(e){
+    let option_={id:option.id,body:option.body,is_correct:option.is_correct,justification:e.target.value}
+    setOption({id:option.id,body:option.body,is_correct:option.is_correct,justification:e.target.value})
+    let options_ = options
+    options_[id - 1] = option_;
+    setOptions(options_)
+  }
+
+  return (
+    &lt;div>
+      {/*--------FIELD PARA RESPOSTA COM CHECKBOX--------*/}
+      &lt;div className="choice-container-create-quizz">
+        &lt;label htmlFor="option" />
+        &lt;input
+          className="box-create-quizz"
+          type="text"
+          id="option"
+          placeholder={`Option ${id}`}
+          required=""
+          value = {option.body}
+          onChange={(e) => handleChangeOption(e)}
+          maxLength="512"
+        />
+        &lt;div className="choice-prefix-create-quizz">
+          &lt;input
+            type="radio"
+            name="1"
+            id="check"
+            required=""
+            checked={option.is_correct}
+            onChange={(e) => checkbox(e)}
+          />
+        &lt;/div>
+        &lt;/div>
+        &lt;div className="justif-container-create-quizz" >
+      
+     {/*  &lt;textarea className="justif-create-quizz" placeholder="Justification">&lt;/textarea> */}
+      &lt;label htmlFor="option" />
+        &lt;input
+          className="box-create-quizz"
+          type="text"
+          placeholder={`Justification`}
+          required=""
+          value={option.justification}
+          onChange={(e) => handleChangeJustification(e)}
+          maxLength="512"
+        />
+        
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+/**
+ * Component to handle the optional text input.
+ * @param {string} opt_text - The optional text input.
+ * @param {function} setOpt_text - Function to set the optional text input.
+ * @returns {JSX.Element} - Returns a JSX element for handling the optional text input.
+ */
+
+const Explanation = (opt_text,setOpt_text) => {  
+  function handleExplanationInput(e) {
+    if (characterInput(e.target.value)) {
+      setOpt_text(e.target.value);
+    }
+  }
+  return (
+    &lt;div className="margem">
+      &lt;div>
+        &lt;input className="box justificacao"
+          name="justification"
+          placeholder="Optional Text"
+          required=""
+          value= {opt_text}
+          onChange={(e) => handleExplanationInput(e)}
+        />
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+/**
+ * Component to render an input field for reviewer justification.
+ * @param {string} text - The reviewer justification text.
+ * @returns {JSX.Element} - Returns a JSX element for rendering the input field for reviewer justification.
+ */
+
+const Explanation_Reviewer = (text) => {  
+  return (
+    &lt;div className="margem">
+      &lt;div>
+        &lt;input className="box justificacao"
+          name="justification"
+          placeholder="Reviewer Justification"
+          required=""
+          value= {text}
+        />
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+/**
+ * Component to handle tags dropdown.
+ * @param {string} tag - The selected tag.
+ * @param {function} setTag - Function to set the selected tag.
+ * @returns {JSX.Element} - Returns a JSX element for handling tags dropdown.
+ */
+
+const Tags = (tag,setTag)=>{
+  const [tags,setTags]=useState([])
+  useEffect(()=>{
+    async function a (){
+      try {
+        //buscar tags
+        const response = await DataFetchGet('api/REQ6/tags/', null);
+        let tags_=response.data.tags;
+        if(tags_.length===0){
+          setTags(["-1"])
+          setTag("-1")
+        }
+        else {setTags(tags_);setTag(tags_[0]);}
+    } catch (error) {
+        setTags(["-1"])
+        setTag("-1")
+    }}
+    a();
+  },[setTag])
+  function tagHandler(e){
+    setTag(e.target.value);
+  }
+  return (
+    &lt;div className='menu-trigger'>
+          &lt;div className="dropdown">
+            &lt;label className ="choose-tag" for="tags">Choose tag&lt;/label>
+            &lt;select name="tags" id="tags" value={tag} onChange={e=>{tagHandler(e)}}>
+            {tags.map(item=>{
+                return (&lt;option value={item}>{item}&lt;/option>)
+            })}
+            &lt;/select>
+          &lt;/div>
+        &lt;/div>
+  )
+}
+
+/**
+ * CreateQuizz component.
+ * @returns {JSX.Element} - Returns a JSX element for the CreateQuizz component.
+ */
+
+const CreateQuizz = () => {
+  const id = parseInt(useParams().id);
+  const [reviewJustifications,setReviewJustifications]=useState([])
+  const [body, setBody] = useState("");
+  const [options, setOptions] = useState([]);
+  const [opt_text, setOpt_text] = useState("");
+  const [question_id, setQuestion_id] = useState(0);
+  const [tag,setTag]=useState("");
+  const [newQuestion,setNewQuestion]=useState(true);
+
+  useEffect(()=>{
+    if(isNaN(id))console.log("New Quizz")
+    else {
+      console.log("Quizz Existente")
+      let result = DataFetchGet(`api/REQ3/get-quiz/${id}`).then((value)=>{
+        let data = value["data"]["data"]
+        if (value.success==="no"){
+          alert("ERROR: DataBase is not connected");
+          setTimeout(()=>{window.location.href = "/"},1000)
+        }
+        else if (data.status===404) {
+          alert(`ERROR: ${data["message"]}`)
+          setTimeout(()=>{window.location.href = "/"},1000)
+        }
+        
+        else if (value.success==="yes"){
+          console.log(data)
+          setOptions(data.options)
+          setBody(data.question)
+          setTag(data.tag)
+          setOpt_text(data.opt_text)
+          setQuestion_id(id)
+          setNewQuestion(false)
+          setReviewJustifications(data.rejected_justifications);
+        }
+        })
+        }
+},[id])
+
+  return (
+    &lt;div>
+      &lt;NavBar/>
+      {Tags(tag,setTag)}
+      {Question(body,setBody)}
+      {Explanation(opt_text,setOpt_text)}
+      &lt;div className="grid-container">
+        {Option(options,setOptions,1,newQuestion)}
+        {Option(options,setOptions,2,newQuestion)}
+        {Option(options,setOptions,3,newQuestion)}
+        {Option(options,setOptions,4,newQuestion)}
+        {Option(options,setOptions,5,newQuestion)}
+        {Option(options,setOptions,6,newQuestion)}
+      &lt;/div>
+      {reviewJustifications.length>0 &amp;&amp; &lt;h2>Review Justifications&lt;/h2>}
+      {reviewJustifications.length>0  &amp;&amp; reviewJustifications.map((item)=>{
+        return Explanation_Reviewer(item.justification)})}
+      {Botao(body, options,opt_text, tag,question_id)}
+    &lt;/div>
+  );
+};
+export default CreateQuizz;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Botao">Botao</a></li><li><a href="global.html#CreateQuizz">CreateQuizz</a></li><li><a href="global.html#Explanation">Explanation</a></li><li><a href="global.html#Explanation_Reviewer">Explanation_Reviewer</a></li><li><a href="global.html#Option">Option</a></li><li><a href="global.html#Question">Question</a></li><li><a href="global.html#Tags">Tags</a></li><li><a href="global.html#button_save">button_save</a></li><li><a href="global.html#button_submit">button_submit</a></li><li><a href="global.html#characterInput">characterInput</a></li><li><a href="global.html#chooseCorrect">chooseCorrect</a></li><li><a href="global.html#justification">justification</a></li><li><a href="global.html#questao">questao</a></li><li><a href="global.html#repeatOption">repeatOption</a></li><li><a href="global.html#sixOptions">sixOptions</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 22:30:00 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

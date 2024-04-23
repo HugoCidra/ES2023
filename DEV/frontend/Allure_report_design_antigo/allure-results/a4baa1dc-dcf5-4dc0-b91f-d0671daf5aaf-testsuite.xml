@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537576695' stop='1700537576922'>
+    <name>Unit_testing_frontend\Tests_grupo4\sixOptions.test.js</name>
+    <title>Unit_testing_frontend\Tests_grupo4\sixOptions.test.js</title>
+    <test-cases>
+        <test-case start='1700537576695' status='passed' stop='1700537576702'>
+            <name>sixOptions should return true for a valid set of six options</name>
+            <title>sixOptions should return true for a valid set of six options</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537576702' status='passed' stop='1700537576920'>
+            <name>sixOptions should throw an error if there are fewer than six options</name>
+            <title>sixOptions should throw an error if there are fewer than six options</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

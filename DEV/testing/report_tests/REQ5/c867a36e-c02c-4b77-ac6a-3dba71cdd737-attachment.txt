@@ -1,0 +1,24 @@
+Homepage - ✅
+Solve_button - ✅
+LOGO - ✅
+expected->http://localhost:3000/admin
+returned->http://localhost:3000/admin
+ADMIN - ✅
+expected->http://localhost:3000/create-quizz
+returned->http://localhost:3000/create-quizz
+CREATE QUIZZ - ✅
+expected->http://localhost:3000/review-quizz
+returned->http://localhost:3000/review-quizz
+REVIEW QUIZZ - ✅
+expected->http://localhost:3000/create-test
+returned->http://localhost:3000/create-test
+CREATE TEST - ✅
+expected->http://localhost:3000/choose-test
+returned->http://localhost:3000/choose-test
+SOLVE TEST - ✅
+expected->http://localhost:3000/profile
+returned->http://localhost:3000/profile
+PROFILE - ✅
+expected->http://localhost:3000/login
+returned->http://localhost:3000/login
+LOGOUT - ✅

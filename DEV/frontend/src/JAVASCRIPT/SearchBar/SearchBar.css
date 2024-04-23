@@ -1,0 +1,17 @@
+.SearchBar_input {
+    background-color: var(--background);
+    height: 2.5rem;
+
+    font-size: 1.5rem;
+    padding-right: 0;
+    border: 2px solid var(--grey);
+    border-radius: 4rem;
+    text-indent: 1rem;
+    width: 100%;
+
+    font-family: Century Gothic;
+}
+
+.SearchBar_input:focus {
+    outline: none;
+}

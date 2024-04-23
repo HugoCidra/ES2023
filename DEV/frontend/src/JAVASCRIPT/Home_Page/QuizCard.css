@@ -1,0 +1,99 @@
+.MyQuizzes_quiz {
+    
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+
+
+    border: 3px solid transparent;
+    /* border-color: rgb(175, 25, 25); */
+
+    overflow: hidden;
+
+    flex-grow: 1;
+
+    text-overflow: ellipsis;
+    transition: 3s ease;
+}
+
+.MyQuizzes_quiz:hover {
+    /* overflow: visible; */
+    text-overflow: unset;
+    /* max-height: unset; */
+    max-height: none;
+}
+
+.Quiz_card{
+
+    flex: 1 0 auto;
+
+    box-sizing: border-box;
+    border: 3px solid transparent;
+    /* border-color: rgb(13, 220, 13); */
+    background-color: #ffff;
+
+    box-shadow: var(--shadow);
+    /* text-align: top; */
+    
+
+    border-radius: 15px;
+    /* height: 16rem; */
+    overflow:hidden;
+
+
+    min-width: 16rem;
+    min-height: 16rem;
+
+
+    max-width: 100%;
+    max-height: 16rem;
+
+    transition: 3s ease;
+    padding: 1rem;
+    height: 100%;
+    
+
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    text-decoration: none;
+}
+
+.Quiz_card:hover {
+    overflow: visible;
+    text-overflow: unset;
+    transition: 3s ease;
+    max-height: 100rem;
+}
+
+.Quiz_state{
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0.9rem;
+    padding: 0.4rem 0;
+
+    border: 2px solid transparent;
+        
+    border-radius: 15px;
+}
+
+.Quiz_state.state_1{
+    background: #e4e4e4;
+    
+}
+.Quiz_state.state_2{
+    background: rgb(169, 212, 255);
+    
+}
+.Quiz_state.state_3{
+    background: rgb(221,189,189);
+    
+}
+.Quiz_state.state_4{
+    background: rgb(200,228,196);
+    
+}

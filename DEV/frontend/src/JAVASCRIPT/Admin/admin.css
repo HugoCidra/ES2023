@@ -1,0 +1,170 @@
+/**
+ * Header definition
+ *
+ * Define cor, espaçamento e tipo de letra do header
+ */
+
+
+
+/**
+ * Logo
+ * 
+ * Define posição da imagem do logo na página
+ */
+
+.logo {
+    width: 22%;
+    height: auto;
+    margin-top: 2%;
+    margin-left: -3%;
+    margin-bottom: 2%;
+}
+
+
+/**
+ * Port Buttons
+ * 
+ * Define posição dos butões relativamente à margem
+ */
+
+.ports{
+    margin-left: 75%;
+}
+
+.container {
+  display: flex;
+  border-radius: 20px;
+  width: 200px;
+  margin-top: 9px;  /* Adicione margem à direita para separação */
+  margin-bottom: 7px; /* Adicione margem à direita para separação */
+  margin-left: 35px;
+  margin-right: 35px;
+  align-items: center; /* Alinhe verticalmente os elementos */
+  justify-content: center; /* Alinhe horizontalmente os elementos */
+  
+}
+
+.container:hover {
+  background-color: rgb(159, 203, 234);
+  transition-duration: 0.3s;
+  cursor: pointer;
+} 
+
+
+.nome {
+  font-family: "Century Gothic", sans-serif;
+  font-size: 15px;
+  margin-right: 35px; /* Adicione margem à direita para separação */
+  color: black;
+  font-weight: bold;
+}
+
+/* .Profile {
+  cursor: pointer;
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+} */
+
+.ports-container .container a {
+  cursor: pointer;
+}
+
+.separator {
+    width: 75%; /* Ocupa toda a largura disponível */
+    height: 0.5px; /* Altura da linha preta */
+    background-color: rgb(114, 114, 114); /* Cor da linha preta */
+    margin: 3px 0px; /* Espaçamento superior e inferior para ajustar o espaçamento */
+    margin-bottom: 24px;
+  }
+
+/**
+ * Port Buttons -> Style
+ * 
+ * Define tamaho e cor dos botões
+ * Define posição do texto dentro dos botões
+ */
+ .ports-container {
+    position: absolute;
+    z-index: 12; /* Deve ser maior que o z-index do .overlay */
+    top: 19%; 
+    margin-left: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    width: 300px;
+    height: 275px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.797);
+    transform: translateY(-25%); 
+}
+
+ .ports-container button {
+    font-family: "Century Gothic", sans-serif;
+    font-size: 15px;
+    width: 250px;
+    height: 30px;
+    margin: 10px 0; /* Adicionar margem inferior para espaçamento */
+    border: none;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    transition-duration: 0.3s;
+    cursor: pointer;
+
+    padding-left: 1rem;
+    border-radius: 1rem;
+
+    > a {
+      border-radius: 1rem;
+    }
+  }
+
+  .ports-container a {
+    font-family: "Century Gothic", sans-serif;
+    font-size: 15px;
+    width: 250px;
+    height: 30px;
+    margin: 10px 0; /* Adicionar margem inferior para espaçamento */
+    border: none;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+
+
+/**
+ * Port Button mode -> Hover
+ * 
+ * Define comportamento do botão quando se dá hover nele
+ */
+
+.ports-container button:hover{
+    background-color: rgb(159, 203, 234);
+}
+
+.ports-container a:hover{
+  background-color: rgb(159, 203, 234);
+}
+
+
+/**
+ * Port Button mode -> Active
+ * 
+ * Define comportamento do botão quando é ativado
+ */
+
+.ports-container button:active{
+    transform: translateY(2px);
+}

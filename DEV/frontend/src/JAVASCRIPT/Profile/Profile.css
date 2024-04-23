@@ -1,0 +1,57 @@
+.container_header { /*defines stiles for elements with the class container_header*/
+    width: auto; /*this sets the width of elements with this class to be automatically determined by their content*/
+}
+
+.username_img { /*this section defines styles for elements with the class username_img*/
+    position: fixed; /*position the element absolutely within its neares positioned ancestor*/
+    margin-top: 25px; /*adds a top margin of 25 pixels to the element*/
+    margin-right: 75px; /*adds a right margin of 75 pixels to the element*/
+    width: auto; /*the width is set to be automatically determined by the content inside the element*/
+    top: 0; /*positions the element at the top of its nearest positioned ancestor*/
+    right: 0; /*positions the element at the right of its nearest positioned ancestor*/
+    height: auto; /*the height is set to be automatically determined by the content inside the element*/
+    font-size: 14px; /*sets the font size for the text content inside this element to 14 pixels*/
+}
+
+#profile_msg { /*defines elements with the id profile_msg*/
+    width: 70%; /*sets the width of the element to be 70% of its containers width*/
+    margin: auto; /*centers the element horizontally within its parent container*/
+    margin-top: 5%; /*adds a top margin of 5% to the element creating space above it*/
+    margin-bottom: 5%; /*adds a bottom margin of 5% to the element creating space below it*/
+}
+
+.container-background {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 0;
+    background-color: rgb(243, 243, 243);
+}
+
+.quiz-flag {
+    text-align: center;
+    font-size: 30px;
+    font-family: "Century Gothic";
+    background-color: white;
+    border-radius: 100px;
+    padding: 5px;
+    border: 4px solid #00AAFF;
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: 50px;
+}
+
+.caixa-texto {
+    text-align: center;
+    font-size: 20px;
+    font-family: "Century Gothic";
+    background-color: white;
+    border-radius: 15px;
+    padding: 5px;
+    border: 4px solid #00AAFF;
+    margin: -200px auto 0;
+    display: block;
+    width: 250px;
+    height: 100px;
+}

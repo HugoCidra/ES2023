@@ -1,0 +1,137 @@
+.CreateTest_instruction {
+    background-color: var(--background);
+
+    .pergunta {
+        display: flex;
+        justify-content: center;
+
+        color: var(--dark-grey);
+        font-size: 2rem;
+
+        margin-top: 25rem;
+    }
+
+}
+
+.containerExt {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 8rem;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+    .title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: black;
+    }
+    
+    .descricao {
+        font-size: 1rem;
+        color: black;
+    }
+}
+
+#test-title-box {
+    width: 60%;
+    max-width: 90rem;
+    min-width: 40rem;
+    height: 5rem;
+    border: none;
+
+    font-size: 2rem;
+    color: var(--dark-grey);
+
+    padding: 2rem;
+
+
+    background: white;
+    border-radius: 10rem;
+    box-shadow: var(--shadow);
+
+    margin: 4rem 0;
+}
+
+.tag_button{
+    /* margin-top: 2rem; */
+    height: 5rem;
+    
+    background-color: white;
+    color:black;
+    border: solid black 0.15rem;
+    border-radius: 10rem;
+    transition-duration: 0.5s;
+    font-size: 1.3rem;
+    min-width: 8rem;
+}
+
+.tag_button:hover{
+    background-color: var(--light-grey);
+    color: black;
+    transition-duration: 0.5s;
+}
+
+.tag_button_click{
+    /* margin-top: 2rem; */
+    height: 5rem;
+    min-width: 8rem;
+    background-color: var(--click);
+    border: solid var(--logo-blue) 0.01rem;
+    box-sizing: border-box;
+    color: white;
+    border-radius: 10rem;
+    transition-duration: 0.5s;
+}
+
+.container-tags {
+    /* top: 27%; */
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap:25px;
+    padding-top: 2rem;
+
+    /* overflow-x: auto; */
+    width: 90%;
+}
+
+
+.submit_button{
+    margin-top: 10rem;
+    /* height: 4rem; */
+    /* width: 13rem; */
+    /* background-color: var(--light-grey); */
+    /* color:black; */
+    /* border-color: black; */
+    /* border-radius: 1rem; */
+    /* transition-duration: 0.5s; */
+}
+
+.cancel_button {
+    background: none;
+    border: none; 
+    padding: 0; /* Remove o espaçamento interno */
+    font-size: 1.5rem;
+    cursor: pointer; /* Muda o cursor ao passar por cima */
+    color: black;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    letter-spacing: 0.1rem;
+}
+
+.cancel_button:hover {
+    text-decoration: none;
+    font-weight: bold; /* Deixa o texto em negrito para dar destaque ao passar o mouse */
+}
+
+

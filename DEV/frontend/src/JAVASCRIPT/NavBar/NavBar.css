@@ -1,0 +1,139 @@
+/*------------------------------NAVBAR------------------------------*/
+#navbar {
+    position:relative;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    border-radius: 10px;
+    padding: 0.1rem 2rem;
+
+    background-color: rgb(255, 255, 255);
+    box-shadow: var(--shadow);
+}
+
+#logo_return_home {
+    cursor: pointer ;
+    height: 2.5rem;
+}
+
+#links_nav {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    width: 80%;
+    gap: 1rem;
+    color: var(--borda);
+    
+}
+
+#links_nav li{
+    display: inline-flex;
+
+    padding: 0.6rem 1rem;
+    width: 14rem;
+    justify-content: center;
+    margin: 0.5rem 0.1rem;
+    border-radius: 1em;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+    
+    > a{
+    text-decoration: none;
+    }
+}
+
+#links_nav li a:hover {
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    color: var(--click);
+}
+
+.active-click {
+    cursor: pointer;
+    background-color: rgb(230, 230, 230);
+    border-radius: 10px;
+}
+
+#logout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*
+#menuButton {
+    cursor: pointer ;
+    height: 1.5rem;
+    box-sizing: border-box;
+
+}
+*/
+
+
+/*
+.profile{
+    color: white;
+    background-color: var(--click);
+    border-radius: 1em;
+    padding: 5px 15px;
+    margin-right: 25px;
+    font-size: 130%;
+}
+
+.profile:hover{
+    cursor: pointer;
+    background-color: rgb(67, 143, 197);
+}
+*/
+
+#menuButton{
+    display: block;
+    cursor: pointer;
+    height: 1.45rem;
+    width: 1.8rem;
+    min-width: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+
+    .line {
+        display: block;
+        height: 0.2rem;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: black;
+    }
+    .line1 {
+        transform-origin: 0% 0%;
+        transition: transform 0.4s ease-in-out;
+
+        &.active {
+            transform: rotate(45deg);
+            width: 100%;
+        }
+    }
+
+    .line2 {
+        transition: transform 0.2s ease-in-out;
+
+        &.active {
+            transform: scaleY(0);
+        }
+    }
+
+    .line3 {
+        transform-origin: 0% 100%;
+        transition: transform 0.4s ease-in-out;
+
+        &.active {
+            transform: rotate(-45deg);
+            width: 100%;
+        }
+        
+    }
+}
+

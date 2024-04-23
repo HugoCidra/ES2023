@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537590177' stop='1700537590264'>
+    <name>DataFetchPost</name>
+    <title>DataFetchPost</title>
+    <test-cases>
+        <test-case start='1700537590189' status='passed' stop='1700537590217'>
+            <name>should send a POST request with authentication and data</name>
+            <title>should send a POST request with authentication and data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590220' status='passed' stop='1700537590228'>
+            <name>should send a POST request without authentication and with data</name>
+            <title>should send a POST request without authentication and with data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590228' status='passed' stop='1700537590232'>
+            <name>should handle a POST request failure with authentication</name>
+            <title>should handle a POST request failure with authentication</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590232' status='passed' stop='1700537590234'>
+            <name>should handle a POST request failure without authentication</name>
+            <title>should handle a POST request failure without authentication</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590235' status='passed' stop='1700537590245'>
+            <name>should send a POST request with authentication but no data</name>
+            <title>should send a POST request with authentication but no data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537590245' status='passed' stop='1700537590263'>
+            <name>should send a POST request without authentication and no data</name>
+            <title>should send a POST request without authentication and no data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

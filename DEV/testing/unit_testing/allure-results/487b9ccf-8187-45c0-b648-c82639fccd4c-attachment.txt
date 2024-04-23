@@ -1,0 +1,6 @@
+-> Paris == Paris
+-> Nice == Nice
+-> Nantes == Nantes
+-> Bordeus == Bordeus
+-> Marselha == Marselha
+-> Lyon == Lyon

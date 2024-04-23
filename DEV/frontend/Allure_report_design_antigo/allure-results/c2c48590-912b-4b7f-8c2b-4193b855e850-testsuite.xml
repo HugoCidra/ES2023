@@ -1,0 +1,119 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537583067' stop='1700537586480'>
+    <name>Login logValue Tests</name>
+    <title>Login logValue Tests</title>
+    <test-cases>
+        <test-case start='1700537583070' status='passed' stop='1700537583455'>
+            <name>1. Redirects to home on successful login</name>
+            <title>1. Redirects to home on successful login</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537583456' status='passed' stop='1700537583746'>
+            <name>2. Shows "Invalid Credentials" on unsuccessful login</name>
+            <title>2. Shows "Invalid Credentials" on unsuccessful login</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537583746' status='passed' stop='1700537584013'>
+            <name>3. Shows "Database Unreachable" when database cannot be reached</name>
+            <title>3. Shows "Database Unreachable" when database cannot be reached</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584013' status='passed' stop='1700537584257'>
+            <name>4. Handles promise rejection during database request</name>
+            <title>4. Handles promise rejection during database request</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584257' status='passed' stop='1700537584419'>
+            <name>5. Handles invalid or unexpected input</name>
+            <title>5. Handles invalid or unexpected input</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584420' status='passed' stop='1700537584504'>
+            <name>6. Displays the initial message correctly</name>
+            <title>6. Displays the initial message correctly</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584504' status='passed' stop='1700537584690'>
+            <name>7. Console logs correct data on unsuccessful login</name>
+            <title>7. Console logs correct data on unsuccessful login</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584690' status='passed' stop='1700537584869'>
+            <name>8. Stores token correctly on successful login</name>
+            <title>8. Stores token correctly on successful login</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537584876' status='passed' stop='1700537585488'>
+            <name>9. Sets log color correctly on error message</name>
+            <title>9. Sets log color correctly on error message</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585489' status='passed' stop='1700537585737'>
+            <name>10. Handles unexpected API response structure</name>
+            <title>10. Handles unexpected API response structure</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585738' status='passed' stop='1700537586010'>
+            <name>11. Handles missing token on successful status code</name>
+            <title>11. Handles missing token on successful status code</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537586010' status='passed' stop='1700537586130'>
+            <name>12. Renders input fields and login button</name>
+            <title>12. Renders input fields and login button</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537586131' status='passed' stop='1700537586307'>
+            <name>13. Test DataFetchPut with null token</name>
+            <title>13. Test DataFetchPut with null token</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537586307' status='passed' stop='1700537586478'>
+            <name>14. Test DataFetchPut with invalid token</name>
+            <title>14. Test DataFetchPut with invalid token</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537591911' stop='1700537592858'>
+    <name>MyQuizzes</name>
+    <title>MyQuizzes</title>
+    <test-cases>
+        <test-case start='1700537591919' status='passed' stop='1700537592651'>
+            <name>1. Renders without errors</name>
+            <title>1. Renders without errors</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592652' status='passed' stop='1700537592743'>
+            <name>2. Shows One Quizz</name>
+            <title>2. Shows One Quizz</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592743' status='passed' stop='1700537592858'>
+            <name>3. Shows Multiple Quizzes with different States</name>
+            <title>3. Shows Multiple Quizzes with different States</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

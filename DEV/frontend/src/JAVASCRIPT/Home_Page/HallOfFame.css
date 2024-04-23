@@ -1,0 +1,336 @@
+/*--------------------- HALL OF FAME ---------------------------*/
+.HOF_body{
+    margin: 0 auto;
+    height: 100%;
+
+    display: flex;
+    padding: 4rem 8rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.HOF_tables_container {
+    flex-grow: 1;
+    flex-basis: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    gap: 1.5rem;
+  }
+
+/* 
+ * Defines placement of Hall of Fame (HOF) box
+ */
+
+.HOF_header{
+    flex-grow: 1;
+    flex-basis: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: right;
+    gap: 1.5rem;
+    
+}
+
+.HOF_SearchBar{
+    width: 80%;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+
+
+.HOF_tables{
+    order: -1;    
+    flex-grow: 1;
+
+    flex-basis: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+
+@media (max-width: 955px) {
+
+    .HOF_body {
+        padding-left: 1rem; 
+        padding-right: 4rem;
+    }
+
+    
+    .HOF_tables {
+        flex-direction: column; /* Stack tables on top of each other */
+        align-items: center; /* Center the tables when stacked */
+    }
+
+    
+    .HOF_tables_container {
+        overflow-y: auto; /* Add a scrollbar for vertical overflow */
+        max-height: 400px; /* Set a fixed height for the container */
+        padding-top: 10px; /* Add padding to the top */
+        padding-bottom: 20px;
+        flex-basis: auto;
+
+        &::-webkit-scrollbar {
+            height: 100%;
+            width: 1rem;
+            padding-right: 2rem;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        --mask: linear-gradient(to bottom, 
+        rgba(0,0,0, 1) 0,   rgba(0,0,0, 1) 95%, 
+        rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0
+        ) 100% 50% / 100% 100% repeat-x;
+
+
+
+        -webkit-mask: var(--mask); 
+        mask: var(--mask);
+
+        
+    }
+    
+    /* Optional: Adjust the width of each table for better responsiveness */
+    .HOF_field {
+        width: 100%;
+        margin-bottom: 2rem; /* Add some spacing between the tables */
+    }
+    
+}
+
+.HOF_field {
+    overflow-y: auto;
+    width: 28rem;
+    height: 56rem;
+    font-size: 4rem;
+    margin-bottom: 2%;
+    background: #ffffff;
+    font-weight: 500;
+    border-radius: 15px;
+    box-shadow: 0 0 5px 5px #c6c6c6;
+}
+
+/* 
+ * Defines placement of the text fields
+ */
+
+ #HOFSolvers_field {
+
+}
+
+#HOFCreators_field {
+
+}
+
+/* 
+ * Defines placement of the Title field inside the HOF boxes
+ */
+
+.HOFTitle_field {
+    height: 15%; 
+    background-image: url('../../IMAGES/header.png');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    border-radius: 15px 15px 0 0; 
+    padding: 20px;
+}
+
+
+/* 
+ * Defines placement of the User Podium field inside the HOF boxes
+ */
+
+.HOFPodium_field {
+    display: flex;
+    height: 25%; 
+    background: #E6E6E6; 
+}
+
+
+/* 
+ * Defines placement of the Other Users field inside the HOF boxes
+ */
+
+.HOFOtherUsers_field {
+    overflow-y: auto;
+    height: 60%; 
+    border-radius: 0 0 15px 15px;
+    padding: 20px;
+}
+
+
+
+
+
+/* 
+ * Defines placement of the medals field inside the HOF Podium boxes
+ */
+.HOFPodiumMedals_field {
+    margin-left: 2%;
+    width: 20%;
+    height: auto;
+    background-size: contain;
+
+}
+
+/* 
+ * Defines placement of the User names and results field inside the HOF Podium boxes
+ */
+.HOFPodiumUser_field {
+    width: 80%;
+    height: auto;
+    padding: 10px;
+}
+
+/* 
+ * Defines placement of the Medal1 image inside HOF Podium Medals boxes
+ */
+.HOFPodiumMedal1_field {
+    height: 33%;
+    background-image: url('../../IMAGES/medals-01.png');
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    background-size: auto 120%;
+
+}
+
+/* 
+ * Defines placement of the Medal2 image inside HOF Podium Medals boxes
+ */
+.HOFPodiumMedal2_field {
+    height: 33%;
+    background-image: url('../../IMAGES/medals-02.png');
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    background-size: auto 120%;
+
+}
+
+/* 
+ * Defines placement of the Medal3 image inside HOF Podium Medals boxes
+ */
+.HOFPodiumMedal3_field {
+    height: 33%;
+    background-image: url('../../IMAGES/medals-03.png');
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    background-size: auto 120%;
+
+}
+
+
+
+/* 
+ * Defines how to display the different users
+ */
+
+.HOF_user {
+    font-size: 20px;
+    text-align: left;
+    position: relative;
+    padding: 0;
+    height: auto;
+    margin-bottom: 11.5%;
+    margin-top: 0;
+    top: 0;
+ 
+}
+
+
+.HOF_pontuation {
+    font-size: 20px;
+    text-align: right;
+    position: absolute;
+    padding: 1%;
+    right: 2%;
+    top:0;
+
+}
+
+/* 
+ * Defines how to display the Hall of Fame title
+ */
+
+.HallOfFame_title {
+    color: var(--grey);
+    font-size: 6rem;
+    font-weight: 500;
+    text-align: right;
+}
+
+/* 
+ * Defines how to display the titles
+ */
+.HOFTitles {
+    font-size: 60%;
+    text-align: right;
+    color: black;
+}
+
+.HOFdropdown {
+    position: absolute;
+    padding: 1rem;
+
+    background-color: var(--light-grey);
+    border-radius: 1rem;
+    
+    color: black;
+    cursor: pointer;
+    width: 20rem;
+    max-height: 20rem;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    gap: 2rem;
+
+    &::-webkit-scrollbar {
+        height: 100%;
+        width: 1rem;
+        padding-right: 2rem;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+        box-shadow: inset 0 0 2px var(--grey); 
+        border-radius: 10rem;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--logo-blue);
+        border-radius: 10rem;
+        width: 1px;
+    }
+
+
+} 
+
+.HOFdropdown > button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 15px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.HOFdropdown > button:hover {
+    color: var(--logo-blue);
+}
+
+

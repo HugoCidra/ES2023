@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {Component} from 'react';
+import '../../CSS/Login/Login_Register.css';
+import DataFetchPost from '../../DataFetchFunctions/DataFetchPost'
+import DataFetchPut from '../../DataFetchFunctions/DataFetchPut';
+
+
+class Header extends Component {
+    
+    /**
+     * Constructor for Header Component.
+     * @param {String} title Title of the page
+     */
+    constructor () {
+        super()
+        this.title = "Login Page"
+    }
+
+    /**
+     * Render function.
+     * @returns {html.header} The logo of the site
+     */
+    render() {
+        return(
+            &lt;header>
+                &lt;script>{window.localStorage.clear()}&lt;/script>
+                &lt;meta charSet="UTF-8" />
+                &lt;title>{this.title}&lt;/title>
+                &lt;link href={require("../../IMAGES/Icon.png")} rel="shortcut icon" type="img/png" />
+                &lt;meta content="width=device-width, initial-scale=1.0" name="viewport" />
+                &lt;link rel="stylesheet" href="../../CSS/Login_Register.css" />
+
+                {/*---------------------------------------------LOGO---------------------------------------------*/}
+                &lt;div>
+                &lt;img src={require("../../IMAGES/Logo.png")} alt="Logo" id="logo-login" />
+                &lt;/div>
+            &lt;/header>
+        );
+    }
+}
+
+
+class LoginForm extends Component {
+
+    /**
+     * Constructor for LoginForm Component.
+     * ATTENTION!! IF CODE DOESNT WORK PLEASE REMOVE STATE FROM THE CONSTRUCTOR AND PUT IT OUTSIDE OF IT!!
+     * @param {state} state Variable which holds information which may change during lifetime of this component
+     * @param {String} username The username of the user
+     * @param {String} password The password of the user
+     * @param {String} log Message warning the user where to login if he has an account
+     * @param {React.ref} logRef
+     */
+    constructor() {
+        super()
+        this.state = {
+            username: '',
+            password: '',
+            log: 'If you already have an account please fill these fields to login.\n',
+        }
+        this.logRef = React.createRef()
+    }
+
+    /**
+     * Sets the value of event as the username.
+     * @param {String} event 
+     */
+    handleUsernameInput = event => {
+        this.setState({username: event.target.value})
+    }
+    /**
+     * Sets the value of event as the password.
+     * @param {String} event 
+     */
+    handlePasswordInput = event => {
+        this.setState({password: event.target.value})
+    }
+    /**
+     * Sets the value of str as the log message with the color Red.
+     * @param {String} str 
+     */
+    handleLogOutput = (str) => {
+        this.logRef.current.style.color = "red"
+        this.setState({log: str})
+    }
+
+    /**
+     * Sends the values of the username and password to the DataBase and receives a value then redirect them to the main page.
+     * Error handling in case the DataBase is unreachable.
+     * @param {state} state State variable defined on the constructor
+     * @returns If the value received is not 200 returns with an error
+     */
+    async logValue(state){
+        try{
+            let a = await DataFetchPut('api/login/', {
+                username: state.username,
+                password: state.password
+            })
+            if (a.data.status !== 200){
+                console.log(a.data)
+                this.handleLogOutput("Invalid Credentials!")
+                return
+            }
+            window.localStorage.setItem("token", a.data.token)
+            window.location.href = '/'
+        }
+        catch(error){
+            this.handleLogOutput("Database Unreachable!")
+            console.log("database unreachable")
+        }
+
+    }
+    
+    /**
+     * Render function.
+     * @returns {html} The login form where the user must login in. Has 3 input boxes, 1 for username, 1 for password and another which is labeled as input even thought its a button.
+     * This "button" can have its text changed so consider changing it to use button instead?
+     */
+    render() {
+        return(
+            &lt;div>
+                &lt;div id="caixa-login" className="caixa-form">
+                &lt;h1 id="login-title" className="title-form">
+                    &lt;b>LOGIN&lt;/b>
+                &lt;/h1>
+                {/* &lt;form id="form-login" className="formulario" onSubmit={this.handleSumit}> */}
+                &lt;div id="form-login" className="formulario">
+                    &lt;div className="texto-info">
+                    &lt;p ref = {this.logRef}>
+                        {this.state.log}
+                    &lt;/p>
+                    &lt;/div>
+                    &lt;div className="field">
+                    &lt;label htmlFor="fullName">Username&lt;/label>
+                    &lt;input
+                        type="text"
+                        name="fullName"
+                        id="fullName"
+                        placeholder="username"
+                        required="True"
+                        onChange={this.handleUsernameInput}
+                    />
+                    &lt;/div>
+                    &lt;div className="field">
+                    &lt;label htmlFor="pass">Password&lt;/label>
+                    &lt;input
+                        type="password"
+                        name="pass"
+                        id="pass"
+                        placeholder="password"
+                        minLength={6}
+                        required="True"
+                        onChange={this.handlePasswordInput}
+                    />
+                    &lt;/div>
+                 
+                    &lt;input
+                        type="submit_login"
+                        id="login"
+                        defaultValue="Login"
+                        onClick={() => this.logValue(this.state)}
+                    />
+                &lt;/div>
+                {/* &lt;/form> */}
+                &lt;/div>
+            &lt;/div>
+        );
+    }
+}
+
+class RegisterForm extends Component {
+
+    /**
+     * Constructor for RegisterForm Component.
+     * ATTENTION!! IF CODE DOESNT WORK PLEASE REMOVE STATE FROM THE CONSTRUCTOR AND PUT IT OUTSIDE OF IT!!
+     * @param {state} state Variable which holds information which may change during lifetime of this component
+     * @param {String} username The username of the user
+     * @param {String} password The password of the user
+     * @param {String} log Message warning the user where to register if he has an account
+     * @param {React.ref} logRef
+     */
+    constructor(){
+        super()
+        this.state = {
+            username: '',
+            password: '',
+            log: "If you don't have an account yet please register before logging in."
+        }
+        this.logRef = React.createRef()
+    }
+
+    /**
+     * Set the value of event as the username
+     * @param {String} event 
+     */
+    handleUsernameInput = event => {
+        this.setState({username: event.target.value})
+    }
+    /**
+     * Set the value of event as the password
+     * @param {String} event 
+     */
+    handlePasswordInput = event => {
+        this.setState({password: event.target.value})
+    }
+    /**
+     * Sets the value of str as the log message with the color Red.
+     * @param {String} str 
+     */
+    handleLogOutput = (str) => {
+        this.logRef.current.style.color = "red"
+        this.setState({log: str.trim()})
+    }
+
+    /**
+     * Validades the string name received as parameter by matching it with illegal characters and size
+     * @param {String} name username of the user
+     * @returns {String} A string of lenght 0 if the username is valid else one of the other options
+     */
+    useUsernameValidation = (name) => {
+        let validRegEx = "^[a-zA-Z0-9_-]+$"
+
+        if (name.length &lt; 6 || name.length > 18) {
+            return "Username must be between 6 and 18 characters"
+        }
+
+        console.log(name.match(validRegEx))
+        if (!name.match(validRegEx)) {
+            return "Username must contain only alphanumerical characters, '-' and '_'"
+        }
+        return ""
+    }
+    
+    /**
+     * Validades the string pass received as parameter by matching it with illegal characters and size
+     * @param {String} pass password of the user
+     * @returns {String} A string of lenght 0 if the username is valid else one of the other options
+     */
+    usePasswordValidation = (pass) => {
+        let validRegEx = "^[a-zA-Z0-9_\\-#$%&amp;@]+$"
+
+        if (pass.length &lt; 8 || pass.length > 18) {
+            return "Password must be between 8 and 18 characters"
+        }
+
+        console.log(pass.match(validRegEx))
+        if (!pass.match(validRegEx)) {
+            return "Password must contain only alphanumerical characters, '-', '_', '#', '$', '%', '&amp;' and '@'"
+        }
+        return ""
+    }
+    
+    /**
+     * Will run the validation functions and post in the DataBase the data of the user then redirect them to the main page.
+     * @param {state} state State variable defined on the constructor
+     * @returns if the string received by the validation functions is different than "" or the database is unreachable
+     */
+    async submit(state){
+
+        const isUsernameValid = this.useUsernameValidation(this.state.username);
+        const isPasswordValid = this.usePasswordValidation(this.state.password);
+
+        if (isUsernameValid !== "" || isPasswordValid !== "") {
+            this.handleLogOutput(`${isUsernameValid}\n${isPasswordValid}`);
+            return
+        }
+
+        let a = await DataFetchPost('api/register/', {
+            username: this.state.username,
+            password: this.state.password,
+        })
+        console.log(a)
+
+        if (a.data.status !== 200){
+            console.log(a.data)
+            if (a.data.status == 500) this.handleLogOutput("Username already exists!");
+            return
+        }
+        
+        window.localStorage.setItem("token", a.data.token)
+        window.location.href = '/'
+    }
+
+    /**
+     * Render function
+     * @returns {html} The register form where the user must register in. Has 3 input boxes, 1 for username, 1 for password and another which is labeled as input even thought its a button.
+     * This "button" can have its text changed so consider changing it to use button instead? 
+     */
+    render() {
+        return(
+            &lt;div>
+                &lt;div id="caixa-register" className="caixa-form">
+                &lt;h1 id="register-title" className="title-form">
+                    &lt;b>REGISTER&lt;/b>
+                &lt;/h1>
+                &lt;div id="form-register" className="formulario">
+                    &lt;div className="texto-info">
+                    &lt;p ref = {this.logRef}>
+                        {this.state.log}
+                    &lt;/p>
+                    &lt;/div>
+                    &lt;div className="field">
+                    &lt;label htmlFor="username">Username&lt;/label>
+                    &lt;input
+                        type="text"
+                        name="fullName"
+                        id="username"
+                        placeholder="username"
+                        required="True"
+                        onChange={this.handleUsernameInput}
+                    />
+                    &lt;/div>
+                    &lt;div className="field">
+                    &lt;label htmlFor="password">Password&lt;/label>
+                    &lt;input
+                        type="password"
+                        name="pass"
+                        id="password"
+                        placeholder="password"
+                        minLength={6}
+                        required="True"
+                        onChange={this.handlePasswordInput}
+                    />
+                    &lt;/div>
+                    &lt;input type="submit_login" id="register" defaultValue="Register" onClick={() => this.submit(this.state)} />
+                &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        );
+    }
+}
+
+/**
+ * Login component.
+ * Renders all the components in this page.
+ * @returns {html} the main contents of the site
+ */
+const Login = () => {
+    return (
+        &lt;>  
+            &lt;Header/>
+            &lt;main>
+                &lt;LoginForm/>
+                &lt;div className="vl">&lt;/div>
+                &lt;RegisterForm/>
+            &lt;/main>
+        &lt;/>
+    );
+}
+
+export default Login;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Header.html">Header</a></li><li><a href="LoginForm.html">LoginForm</a></li><li><a href="RegisterForm.html">RegisterForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Login">Login</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 22:40:20 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

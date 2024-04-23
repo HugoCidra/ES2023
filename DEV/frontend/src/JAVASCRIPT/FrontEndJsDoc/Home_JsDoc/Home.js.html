@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Home.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Home.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component, useState, useEffect } from 'react';
+import '../../CSS/Home_Page/Home.css';
+import '../../CSS/index.css';
+import DataFetchGet from '../../DataFetchFunctions/DataFetchGet';
+import NavBar from '.././NavBar/NavBar';
+
+
+class MyQuizzes extends Component {
+
+  /**
+   * Constructor for MyQuizes Component.
+   * @param {state} state Variable which holds information which may change during lifetime of this component
+   * @param {Array.&lt;string>} my_quizzes 3D array for saving the quizes information
+   * @param {String} draft_ref String with an html route
+   */
+  constructor() {
+    super();
+    this.state = {
+      my_quizzes: [[[]]],
+      draft_ref: "/create-quizz/"
+    }
+  }
+
+  /**
+   * React function. Called before the constructor is initialized.
+   * Fetchs the DataBase for unfinished/reproved quizes.
+   * If this data is undefined then the user is redirected to the login page.
+   * Relevant information is logged into the console.
+   */
+  async componentWillMount() {
+    let payload = await DataFetchGet('api/REQ2/unfinished_reproved/', null);  
+    if(payload.data.unfinished_reproved_quizzes === undefined){
+      console.log("going to login")
+      window.location.href="/login"
+    }
+    this.setState({my_quizzes: payload.data.unfinished_reproved_quizzes});  
+    console.log(payload)
+  }
+
+  /**
+   * Function to set the state of the quiz.
+   * Quiz can be in states: draft, in evaluation, rejected or accepted.
+   * @param {String} question Name of the Quiz
+   * @param {int} state Integer stating the state of the quiz
+   * @param {int} id ID of the quiz
+   * @returns {html} Sends the user to the link defined by draft_ref if state is 1, else shows on the site a paragraph stating the state of the quiz
+   */
+  user_quizz(question, state, id) {
+    this.draft_ref = "/create-quizz/"+id;
+
+        if(state === 1){
+          return&lt;>
+        &lt;a href={this.draft_ref} target="_self" rel="noopener">&lt;p className= 'MyQuizzes_quiz state_1'>State: draft&lt;br/>Pergunta: {question}&lt;/p>&lt;/a>
+        &lt;/>
+        }
+        else if(state === 2){
+          return&lt;>
+        &lt;p className= 'MyQuizzes_quiz state_2'>State: in evaluation&lt;br/>Pergunta: {question}&lt;/p>
+        &lt;/>
+        }
+        else if(state === 3){
+          return&lt;>
+        &lt;a href={this.draft_ref} target="_self" rel="noopener">&lt;p className= 'MyQuizzes_quiz state_3'>State: rejected&lt;br/>Pergunta: {question}&lt;/p>&lt;/a>
+        &lt;/>
+        }
+        else if(state === 4){
+          return&lt;>
+        &lt;p className= 'MyQuizzes_quiz state_4'>State: accepted&lt;br/>Pergunta: {question}&lt;/p>
+        &lt;/>
+        }
+  }
+
+  /**
+   * Render function.
+   * @returns {html} Html code with a table showing all quizes
+   */
+  render(){
+        return &lt;>
+        &lt;h1 className="MyQuizzes_title">MY QUIZZES&lt;/h1>
+          &lt;div className="MyQuizzes_field">
+          {this.state.my_quizzes.map(item => (
+            &lt;div className="MyQuizzes_quizz_field">
+              {this.user_quizz(item[3], item[1], item[0])}
+              &lt;/div>
+          ))}
+          &lt;/div>
+        &lt;/>
+  }
+          
+}
+
+class HallOfFame extends Component {
+
+  /**
+   * Constructor for HallOfFame Component.
+   * @param {state} state Variable which holds information which may change during lifetime of this component
+   * @param {Array.&lt;string>} creators 3D array with the data of the quiz creators
+   * @param {Array.&lt;string>} solvers 3D array with the data of the quiz solvers
+   */
+  constructor() {
+    super();
+    this.state = {
+      creators: [[[]]],
+      solvers: [[[]]]
+    }
+  }
+
+  /**
+   * React function. Called before the constructor is initialized.
+   * Fetchs the DataBase for the data of the creators|solvers and saves it in the creators|solvers arrays.
+   * Relevant information is logged in the console.
+   */
+  async componentWillMount() {
+    let payload_creators = await DataFetchGet('api/REQ2/creators/', null);    
+    console.log(payload_creators);
+    this.setState({creators: payload_creators.data.creators});
+
+    let payload_solvers = await DataFetchGet('api/REQ2/solvers/', null);    
+    console.log(payload_solvers);
+    this.setState({solvers: payload_solvers.data.solvers});
+  }
+
+  /**
+   * Render function.
+   * @returns {html} html code with the tables for the creators and solvers
+   */
+  render(){
+    return &lt;>
+    &lt;h1 className="HallOfFame_title">HALL OF FAME&lt;/h1>
+         &lt;div className="HOF_field" id= "HOFSolvers_field">
+          &lt;div className="HOFTitles">SOLVERS&lt;/div>
+         {this.state.solvers.map(item => (
+            &lt;>
+            &lt;div className= 'HOF_user'>{item[0]} &lt;div className= 'HOF_pontuation'>{item[1]}&lt;/div>&lt;/div>
+            &lt;/>
+          ))}
+          &lt;/div>
+     
+          &lt;div className="HOF_field" id="HOFCreators_field"> 
+          &lt;div className="HOFTitles">CREATORS&lt;/div>  
+          {this.state.creators.map((item) => (
+            &lt;>
+            &lt;div className= 'HOF_user'>{item[0]} &lt;div className= 'HOF_pontuation'>{item[1]}&lt;/div>&lt;/div>
+            &lt;/>
+          ))}
+          &lt;/div>
+    &lt;/> 
+  }
+}
+
+class Home extends React.Component {
+
+  /**
+   * Function that returns a hyperlink with the appearance of a button.
+   * @param {*} btn_value 
+   * @param {*} btn_ref 
+   * @param {*} btn_type 
+   * @param {*} btn_class 
+   * @returns {html} hyperlink and input
+   */
+  home_button (btn_value, btn_ref, btn_type, btn_class) {
+    return &lt;a
+    href={btn_ref}
+    target="_self"
+    rel="noopener"
+    >
+        &lt;input className= {btn_class} type={btn_type} value={btn_value} id={btn_type}/> &lt;br/>
+    &lt;/a>
+  }
+
+  /**
+   * Async function.
+   * Fetchs the DataBase for the data of the user.
+   * If the user is a solver, they will be redirected to another site, else, an alert with will pop up.
+   */
+  async solve_button_action(){
+    let payload = await DataFetchGet('api/REQ2/is_solver/', null);
+    console.log(payload);
+    if(payload.data.response === false){
+      window.alert("Must be a Solver")
+    }
+    else{
+      window.location.href = "/choose-test"
+    }
+  }
+
+  /**
+   * Redirects the user to another site or shows an alert depending on the result of solve_button_action() function.
+   * @returns {html.button} Shows the button
+   */
+  solve_button() {
+    return&lt;>
+    &lt;button className="button button_home2" id="Solve_button" value="SOLVE TEST" onClick={this.solve_button_action}>SOLVE TEST&lt;/button>
+    &lt;/>
+  }
+
+  /**
+   * Render function.
+   * Renders all components in this page.
+   * @returns {html} The main content of the site
+   */
+  render(){
+        return &lt;>
+        &lt;main>
+            &lt;NavBar/>    
+            &lt;MyQuizzes/>
+            &lt;HallOfFame/>
+        &lt;/main>
+        &lt;/>
+  }
+
+}
+
+export default Home;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="HallOfFame.html">HallOfFame</a></li><li><a href="MyQuizzes.html">MyQuizzes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 22:37:00 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

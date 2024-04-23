@@ -1,0 +1,43 @@
+## Project Documentation
+
+- [QuirckedUpSoftware](http://10.17.0.161:3000)
+  ---
+
+- [ARCH](./ARCH/)
+   - Database
+     - [Physical Model](./ARCH/modelo_fisico%20.png)
+     - [Conceptual Model](./ARCH/modelo_concetual.png)
+     - [Description](./ARCH/BD_description.md)
+   - Architecture
+     - [Sketch](./ARCH/Arch_sketch.png)
+     - [Description](./ARCH/ARCH%20Report.txt)
+----
+- [DEV](./DEV/)
+  - [Backend](./DEV/backend/)
+    - [API](./DEV/backend/main/api/)
+    - [API Documentation](./DEV/backend/main/_docs/)
+  - [Frontend](./DEV/frontend/)
+    - [Summary](./DEV/frontend/ResumoDoc.md)
+  - Testing
+    - [Functional Tests](./DEV/testing/)
+      - [Report](https://spectacular-crostata-45194b.netlify.app/)
+    - [Unit Tests](./DEV/testing/unit_testing/) (Backend)
+      - [Report Coverage](https://espl1coveragereport.netlify.app)
+      - [Report Tests](https://espl1alurereport.netlify.app)
+
+        ----
+        - Old Reports
+          - [Report Coverage](https://unittestbackend.netlify.app)
+          - [Report Tests](https://backendunittestalure.netlify.app)
+        ----
+    - [Unit Tests](./DEV/frontend/Unit_testing_frontend/Tests_grupo5) (Frontend)
+      - [Report](https://652da2ddcd5f17143e225ae5--dazzling-bienenstitch-aac65f.netlify.app/)
+----  
+- Guides
+  - [Docker Container Guide](./DEV/DockerContainer_guide.md)
+  - [VM Access and Deployment Guide](./DEV/HelpDeployment.md)
+  - [Selenium Guide](./DEV/testing/selenium-guide2.md)
+----
+- [PM](./PM/)
+  - [Atas/Minutes](./PM/Atas/)
+  - [Profiles](./PM/profiles/)

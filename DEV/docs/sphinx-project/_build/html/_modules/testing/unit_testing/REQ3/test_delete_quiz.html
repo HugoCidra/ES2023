@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>testing.unit_testing.REQ3.test_delete_quiz &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">testing.unit_testing.REQ3.test_delete_quiz</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for testing.unit_testing.REQ3.test_delete_quiz</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">api.REQ3.views</span> <span class="kn">import</span> <span class="n">delete_quiz</span>
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">RequestFactory</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">api.utils</span> <span class="kn">import</span> <span class="n">tokens</span>
+<span class="kn">from</span> <span class="nn">jwt</span> <span class="kn">import</span> <span class="n">decode</span>
+<span class="kn">from</span> <span class="nn">api.models</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Question</span><span class="p">,</span> <span class="n">Option</span>
+
+<span class="sd">&quot;&quot;&quot;APAGAR ESTE IMPORT E UTILIZACAO QND TIVER CONFTEST.PY&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">api.REQ3.views</span> <span class="kn">import</span> <span class="n">new_quiz</span>
+
+
+<span class="sd">&quot;&quot;&quot;testa que dá o erro correto quando o médtodo do request não é POST&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="test_register_invalid_method">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_register_invalid_method">[docs]</a>
+<span class="k">def</span> <span class="nf">test_register_invalid_method</span><span class="p">():</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{})</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">delete_quiz</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">404</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;teste que dá o erro correto quando o token não é valido - user não está logged id&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="test_invalid_token">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_invalid_token">[docs]</a>
+<span class="k">def</span> <span class="nf">test_invalid_token</span><span class="p">():</span>
+    <span class="n">invalid_token</span> <span class="o">=</span> <span class="s2">&quot;invalid_token&quot;</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span> <span class="n">invalid_token</span><span class="p">}</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">delete_quiz</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="s2">&quot;code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">400</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;could not extract token info.&quot;</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;teste que dá o erro correto quando o question_id não é encontrado</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="test_question_id_not_valid">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_question_id_not_valid">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+<span class="k">def</span> <span class="nf">test_question_id_not_valid</span><span class="p">():</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="s2">&quot;u8&quot;</span>
+    <span class="p">)</span>  <span class="c1"># token de um utilizador que não existe</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span> <span class="n">token</span>
+    <span class="p">}</span>  <span class="c1"># o token é passado no header do request campo authoriztion</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">delete_quiz</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="s2">&quot;code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">404</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">])</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;teste que verifica se está certo quando se elimina uma questão&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="test_delete_question_successful">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_delete_question_successful">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+<span class="k">def</span> <span class="nf">test_delete_question_successful</span><span class="p">():</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PRC&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">4</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="s2">&quot;u8&quot;</span>
+    <span class="p">)</span>  <span class="c1"># token de um utilizador que não existe</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span> <span class="n">token</span>
+    <span class="p">}</span>  <span class="c1"># o token é passado no header do request campo authoriztion</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">delete_quiz</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Quiz deleted succesfully.&quot;</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;teste que verifica se está certo quando se elimina uma questão&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="test_verify_question_deletion">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ3.html#testing.unit_testing.REQ3.test_delete_quiz.test_verify_question_deletion">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+<span class="k">def</span> <span class="nf">test_verify_question_deletion</span><span class="p">():</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PRC&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">4</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="s2">&quot;u8&quot;</span>
+    <span class="p">)</span>  <span class="c1"># token de um utilizador que não existe</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span> <span class="n">token</span>
+    <span class="p">}</span>  <span class="c1"># o token é passado no header do request campo authoriztion</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">delete_quiz</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="ne">AssertionError</span><span class="p">(</span><span class="n">Option</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="s2">&quot;OPTION1&quot;</span><span class="p">))</span>
+    <span class="ne">AssertionError</span><span class="p">(</span><span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="s2">&quot;BODY_TEST1&quot;</span><span class="p">))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

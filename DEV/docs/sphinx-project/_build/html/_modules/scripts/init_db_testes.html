@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.init_db_testes &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scripts.init_db_testes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scripts.init_db_testes</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">bcrypt</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">api.utils</span> <span class="kn">import</span> <span class="n">tokens</span>
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">RequestFactory</span>
+<span class="kn">from</span> <span class="nn">api.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">api.REQ3.views</span> <span class="kn">import</span> <span class="n">new_quiz</span>
+<span class="kn">from</span> <span class="nn">api.REQ6.views</span> <span class="kn">import</span> <span class="n">create_test</span>
+
+
+<div class="viewcode-block" id="run">
+<a class="viewcode-back" href="../../scripts.html#scripts.init_db_testes.run">[docs]</a>
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="c1"># user default 1</span>
+    <span class="n">new_password</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="s2">&quot;admin123&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">gensalt</span><span class="p">())</span>
+    <span class="n">new_user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;UserDefault1&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">new_password</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span>
+        <span class="n">email</span><span class="o">=</span><span class="s2">&quot;UserDefault1@gmail.com&quot;</span><span class="p">,</span>
+        <span class="n">role</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">new_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1"># user solver 2</span>
+    <span class="n">new_password</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="s2">&quot;admin123&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">gensalt</span><span class="p">())</span>
+    <span class="n">new_user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;UserSolver2&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">new_password</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span>
+        <span class="n">email</span><span class="o">=</span><span class="s2">&quot;UserSolver2@gmail.com&quot;</span><span class="p">,</span>
+        <span class="n">role</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">new_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1"># user default 3</span>
+    <span class="n">new_password</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="s2">&quot;admin123&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">gensalt</span><span class="p">())</span>
+    <span class="n">new_user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;UserDefault2&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">new_password</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span>
+        <span class="n">email</span><span class="o">=</span><span class="s2">&quot;UserDefault1@gmail.com&quot;</span><span class="p">,</span>
+        <span class="n">role</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">new_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1"># user default 4</span>
+    <span class="n">new_password</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="s2">&quot;admin123&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">gensalt</span><span class="p">())</span>
+    <span class="n">new_user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;UserDefault3&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">new_password</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">),</span>
+        <span class="n">email</span><span class="o">=</span><span class="s2">&quot;UserDefault1@gmail.com&quot;</span><span class="p">,</span>
+        <span class="n">role</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">new_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PM&quot;</span><span class="p">,</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span> <span class="s2">&quot;PB&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+        <span class="n">new_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+        <span class="n">new_tag</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1"># quiz 1 - not editable (accepted)</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">4</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># quiz 2 - not editable (accepted)</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">4</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># quiz 3 - not editable (in_valuation)</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># quiz 4 - not editable (in_valuation)</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># quiz 5 - editable (rejected)</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="mi">3</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>  <span class="c1"># 3 * accepted - q1</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">Vote</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">is_approved</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">justification</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># user 2, 3 ,4</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>  <span class="c1"># 3 * accepted - q2</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">Vote</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">is_approved</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">justification</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># user 2, 3 ,4</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>  <span class="c1"># 2 * accepted - q3</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">Vote</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">is_approved</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">justification</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># user 2, 3</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>  <span class="c1"># 2 * rejected - q4</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">Vote</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">is_approved</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">justification</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># user 2, 3</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1"># create 20 questions for a test</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">new_quiz</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PM&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;TEST_QuizTestSolved&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> 
+            <span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># create test</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">new_quiz</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;TEST_QuizTestSolved&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># # create test (creator = user1) solved by user 2</span>
+    <span class="c1"># token = tokens.write_token({&quot;id&quot;: 1}).decode(&quot;u8&quot;)  </span>
+    <span class="c1"># header = {&quot;HTTP_AUTHORIZATION&quot;: token}</span>
+    <span class="c1"># data = list(json.loads(&#39;{&quot;title&quot;: &quot;TEST_TEST1&quot;, &quot;tags&quot;: [&quot;PM&quot;, &quot;PA&quot;]}&#39;))</span>
+    <span class="c1"># request = RequestFactory().get(&quot;/test&quot;, data, content_type=&#39;application/json&#39;, **header)</span>
+    <span class="c1"># create_test(request)</span>
+    <span class="c1"># new_solved_test = SolvedTest(user=2, test=1)</span>
+    <span class="c1"># new_solved_test.save()</span>
+
+
+    <span class="c1"># create 20 questions for a test</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">new_quiz</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PM&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;TEST_QuizTestNotSolved&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> 
+            <span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># create test</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">new_quiz</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;TEST_QuizTestNotSolved&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>  <span class="c1"># solver</span>
+            <span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># create test solved by user 2</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;u8&quot;</span><span class="p">)</span>  <span class="c1"># user_id = 1</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+    <span class="c1"># data = list(json.loads(&#39;{&quot;title&quot;: &quot;TEST_TEST2&quot;, &quot;tags&quot;: [&quot;PM&quot;, &quot;PA&quot;]}&#39;))</span>
+    <span class="c1"># request = RequestFactory().get(&quot;/test&quot;, data, content_type=&#39;application/json&#39;, **header)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PM&#39;</span><span class="p">,</span> <span class="s2">&quot;PA&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span><span class="s1">&#39;teste&#39;</span>
+            <span class="p">}</span>
+    <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/test&#39;</span><span class="p">,</span> <span class="n">json_data</span><span class="p">,</span><span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span><span class="o">**</span><span class="n">header</span><span class="p">)</span>
+
+    <span class="n">create_test</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<span class="w">  </span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">3 * user creator/default: -&gt; id = 1, 3, 4</span>
+<span class="sd">1 * user solver: -&gt; id = 2</span>
+
+<span class="sd">3 * tag: </span>
+<span class="sd">    PM -&gt; id = 1</span>
+<span class="sd">    PA -&gt; id = 2</span>
+<span class="sd">    PB -&gt; id = 3</span>
+
+
+<span class="sd">1 * quiz accepted: -&gt; id = 1</span>
+<span class="sd">    tag: &quot;PB&quot;,</span>
+<span class="sd">    body: &quot;BODY_TEST1&quot;</span>
+<span class="sd">    (not editable)</span>
+
+<span class="sd">1 * quiz accepted: -&gt; id = 2</span>
+<span class="sd">    tag: &quot;PB&quot;,</span>
+<span class="sd">    body: &quot;BODY_TEST2&quot;</span>
+<span class="sd">    (not editable)    </span>
+
+<span class="sd">1 * quiz in_evaluation: -&gt; id = 3</span>
+<span class="sd">    tag: &quot;PB&quot;,</span>
+<span class="sd">    body: &quot;BODY_TEST3&quot;</span>
+<span class="sd">    (not editable)</span>
+
+<span class="sd">1 * quiz in_evaluation: -&gt; id = 4</span>
+<span class="sd">    tag: &quot;PB&quot;,</span>
+<span class="sd">    body: &quot;BODY_TEST4&quot;</span>
+<span class="sd">    (not editable)</span>
+
+<span class="sd">1 * quiz rejected: -&gt; id = 5</span>
+<span class="sd">    tag: &quot;PB&quot;,</span>
+<span class="sd">    body: &quot;BODY_TEST5&quot;</span>
+<span class="sd">    (editable)</span>
+
+
+<span class="sd">3 * vote accepted -&gt; q_id=1</span>
+<span class="sd">3 * vote accepted -&gt; q_id=2</span>
+<span class="sd">2 * vote accepted -&gt; q_id=3</span>
+<span class="sd">2 * vote rejected -&gt; q_id=4</span>
+
+
+
+<span class="sd">1 * solved test: -&gt; id = 1</span>
+<span class="sd">    title - TEST_TEST1</span>
+<span class="sd">    questions - TEST_QuizTestSolved</span>
+<span class="sd">    creator - UserDefault1 -&gt; id = 1</span>
+<span class="sd">    solver - UserSolver2 -&gt; id = 2</span>
+
+<span class="sd">1 * test: -&gt; id = 2</span>
+<span class="sd">    title - TEST_TEST2</span>
+<span class="sd">    questions - TEST_QuizTestSolved</span>
+<span class="sd">    creator - UserDefault1 -&gt; id = 1</span>
+
+
+<span class="sd">all quizzes are created by user id=1</span>
+<span class="sd">    </span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

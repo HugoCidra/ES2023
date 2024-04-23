@@ -1,0 +1,140 @@
+#!/bin/bash
+
+# Verifiqua se o diretório atual é "DEV/docs"
+if [[ $(pwd) != *"/pl1/DEV/docs"* ]]; then
+  echo "Este script deve ser executado a partir do diretório 'DEV/docs'."
+  exit 1
+fi
+
+
+# Função para verificar se a biblioteca está instalada no ambiente virtual
+is_installed() {
+  local library="$1"
+  if ! command -v "$library" &> /dev/null; then
+    echo "A biblioteca '$library' não está instalada."
+    exit 1
+  fi
+}
+
+# Verificar todas as dependências e criar uma lista das que estão faltando
+missing_dependencies=()
+if ! is_installed pip; then
+  missing_dependencies+=("pip")
+fi
+
+# Instala as dependências ausentes
+if [ ${#missing_dependencies[@]} -gt 0 ]; then
+  echo "Instalando dependências ausentes: ${missing_dependencies[*]}"
+  sudo apt-get install "${missing_dependencies[@]}"
+fi
+
+# Nome do ambiente virtual
+venv_name="sphinx_venv"
+
+# Função para verificar se um ambiente virtual existe
+venv_exists() {
+  if [ -d "$1" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Cria um ambiente virtual se não existir
+if ! venv_exists "$venv_name"; then
+  echo "Criando ambiente virtual..."
+  python3 -m venv "$venv_name"
+fi
+
+# Ativa o ambiente virtual
+source "$venv_name/bin/activate"
+
+# Instala as dependências do projeto necessárias para o Sphinx
+pip install -r requirements.txt
+
+# Função para adicionar extensões ao arquivo conf.py, mantendo as existentes e para adicionar código personalizado
+add_extensions_to_conf_py() {
+  local conf_file="./conf.py"
+  local extensions="sphinx.ext.autodoc sphinx.ext.viewcode sphinx.ext.napoleon"
+  local custom_code_to_add="
+# Custom code to append to conf.py
+import os
+import sys
+import django
+
+sys.path.append(os.path.abspath('../../'))
+sys.path.append(os.path.abspath('../../testing/'))
+sys.path.append(os.path.abspath('../../backend/main/'))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'main.settings'
+django.setup()
+
+"
+
+  # Verifiqua se as extensões já estão definidas
+  if grep -q "extensions =" "$conf_file"; then
+    # Separa as extensões existentes em um array
+    local existing_extensions=$(grep "extensions =" "$conf_file" | sed 's/.*\[\(.*\)\].*/\1/')
+    IFS=', ' read -ra existing_extensions_array <<< "$existing_extensions"
+
+    # Adiciona apenas as extensões que estão faltando
+    extensions_to_add=""
+    for extension in $extensions; do
+      if [[ ! " ${existing_extensions_array[@]} " =~ " $extension " ]]; then
+        extensions_to_add="$extensions_to_add, '$extension'"
+      fi
+    done
+
+    # Remove a vírgula no início da string, se existir
+    extensions_to_add="${extensions_to_add#,}"
+
+    # Atualiza as extensões no arquivo
+    sed -i "s/extensions = .*/extensions = [$extensions_to_add]/" "$conf_file"
+  else
+    # Se as extensões não estiverem definidas, adiciona-as ao arquivo
+    echo "extensions = [$extensions]" >> "$conf_file"
+  fi
+
+  # Adiciona o código personalizado ao final do arquivo
+  echo "$custom_code_to_add" >> "$conf_file"
+}
+
+# Função para criar um arquivo com as respostas para o sphinx-quickstart
+create_sphinx_config() {
+  cat <<EOF > answers.txt
+n
+Documentação do Backend, Testes Funcionais e Testes Unitários
+PL1
+1.0
+\n
+EOF
+}
+
+mkdir sphinx-project
+cd sphinx-project
+
+create_sphinx_config
+# Inicializa o projeto Sphinx
+sphinx-quickstart <  answers.txt
+
+add_extensions_to_conf_py
+
+# Gera a documentação de exemplo (opcional)
+sphinx-apidoc -o . ../../backend/main/
+sphinx-apidoc -o . ../../testing/
+
+# Verifiqua se o diretório atual é "DEV/docs"
+if [ "$(basename "$(pwd)")" != "sphinx-project" ]; then
+  echo "Erro ao gerar os RST."
+  exit 1
+fi
+
+# Adiciona manualmente os módulos "modules" e "testing" à ToC Tree no arquivo index.rst
+sed -i '/^.. :caption: Contents:/a \ \n   modules\n   testing' index.rst
+# Altera  o html_theme para "sphinx_rtd_theme" no arquivo conf.py
+sed -i "s/html_theme = .*/html_theme = 'sphinx_rtd_theme'/" conf.py
+
+# Cria o HTML da documentação
+make html
+
+echo "O projeto Sphinx foi criado em $(pwd)."
+deactivate

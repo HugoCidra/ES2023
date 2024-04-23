@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537583470' stop='1700537586675'>
+    <name>HallOfFame</name>
+    <title>HallOfFame</title>
+    <test-cases>
+        <test-case start='1700537583471' status='passed' stop='1700537585145'>
+            <name>1. Renders without errors</name>
+            <title>1. Renders without errors</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585145' status='passed' stop='1700537585502'>
+            <name>2. Shows Solvers</name>
+            <title>2. Shows Solvers</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585502' status='passed' stop='1700537585816'>
+            <name>3. Shows Creators</name>
+            <title>3. Shows Creators</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537585817' status='passed' stop='1700537586334'>
+            <name>4. Shows Solvers and Creators</name>
+            <title>4. Shows Solvers and Creators</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537586334' status='passed' stop='1700537586674'>
+            <name>1. Home renders child components</name>
+            <title>1. Home renders child components</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

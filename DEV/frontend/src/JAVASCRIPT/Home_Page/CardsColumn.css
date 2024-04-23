@@ -1,0 +1,20 @@
+.MyQuizzes_column {
+    flex-grow: 1;
+    flex-basis: 1;
+
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+}
+
+
+/* Set a fixed width and height for each quiz card */
+.MyQuizzes_quizz_field {
+    width: 200px;
+  
+    padding: 10px;
+  }
+

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>testing.unit_testing.REQ4.test_vote &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">testing.unit_testing.REQ4.test_vote</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for testing.unit_testing.REQ4.test_vote</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">api.REQ1.views</span> <span class="kn">import</span> <span class="n">register</span>
+<span class="kn">from</span> <span class="nn">api.REQ4.views</span> <span class="kn">import</span> <span class="n">vote</span>
+<span class="kn">from</span> <span class="nn">api.REQ3.views</span> <span class="kn">import</span> <span class="n">new_quiz</span>
+<span class="kn">from</span> <span class="nn">api.utils</span> <span class="kn">import</span> <span class="n">tokens</span>
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">RequestFactory</span>
+<span class="kn">from</span> <span class="nn">api.models</span> <span class="kn">import</span> <span class="n">Vote</span><span class="p">,</span> <span class="n">Question</span><span class="p">,</span> <span class="n">User</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">bcrypt</span>
+<span class="kn">from</span> <span class="nn">jwt</span> <span class="kn">import</span> <span class="n">decode</span>
+
+<div class="viewcode-block" id="aux_create_quiz">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.aux_create_quiz">[docs]</a>
+<span class="k">def</span> <span class="nf">aux_create_quiz</span><span class="p">(</span><span class="n">id_user</span><span class="p">):</span>
+    <span class="n">new_quiz</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="s2">&quot;PRC&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;BODY_TEST1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opt_text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span><span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION1&quot;</span><span class="p">,</span><span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,},</span>
+                <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION2&quot;</span><span class="p">,</span><span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,},</span>
+                <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span><span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION3&quot;</span><span class="p">,</span><span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,},</span>
+                <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span><span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION4&quot;</span><span class="p">,</span><span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span><span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,},</span>
+                <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span><span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION5&quot;</span><span class="p">,</span><span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,},</span>
+                <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span><span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;OPTION6&quot;</span><span class="p">,</span><span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">id_user</span><span class="p">),</span>
+        <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+<div class="viewcode-block" id="aux_create_vote">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.aux_create_vote">[docs]</a>
+<span class="k">def</span> <span class="nf">aux_create_vote</span><span class="p">(</span><span class="n">id_user</span><span class="p">,</span><span class="n">approved</span><span class="p">,</span><span class="n">id_question</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">Vote</span><span class="p">(</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">id_user</span><span class="p">,</span> <span class="n">is_approved</span> <span class="o">=</span> <span class="n">approved</span><span class="p">,</span> <span class="n">justification</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">question_id</span> <span class="o">=</span> <span class="n">id_question</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+
+<span class="c1">#valida o caso em que nao existe token no header</span>
+<div class="viewcode-block" id="test_without_token">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_without_token">[docs]</a>
+<span class="k">def</span> <span class="nf">test_without_token</span><span class="p">():</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/vote&#39;</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="p">{},</span><span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">vote</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">400</span></div>
+
+
+<span class="c1">#valida o caso em que e passado um token invalido</span>
+<div class="viewcode-block" id="test_invalid_token">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_invalid_token">[docs]</a>
+<span class="k">def</span> <span class="nf">test_invalid_token</span><span class="p">():</span>
+    <span class="n">invalid_token</span> <span class="o">=</span> <span class="s2">&quot;invalid_token&quot;</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span><span class="n">invalid_token</span><span class="p">}</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/vote&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">vote</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">400</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;errors&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;invalid token&quot;</span></div>
+
+
+<div class="viewcode-block" id="test_verify_vote_creation">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_verify_vote_creation">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+<span class="k">def</span> <span class="nf">test_verify_vote_creation</span><span class="p">():</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">quest_id</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;u8&#39;</span><span class="p">)</span><span class="c1">#o token gerado é válido porque a função verify_token(tokens.py) apenas verifica se o token foi criado com o mesmo SECRET e não se o user é válido</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span><span class="n">token</span><span class="p">}</span> <span class="c1">#o token é passado no header do request campo authorization</span>
+    <span class="c1">#o corpo do request envia o id da question em que se esta a votar</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/vote&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;accepted&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="o">**</span><span class="n">header</span><span class="p">,</span> <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span><span class="n">vote</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="n">new_vote</span> <span class="o">=</span> <span class="n">Vote</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">user_id</span><span class="p">,</span><span class="n">question_id</span> <span class="o">=</span> <span class="n">quest_id</span><span class="p">)</span>
+    
+    <span class="k">assert</span> <span class="n">new_vote</span> <span class="o">!=</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;vote has been saved&quot;</span></div>
+
+    
+    
+<div class="viewcode-block" id="test_approved_question">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_approved_question">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>   
+<span class="k">def</span> <span class="nf">test_approved_question</span><span class="p">():</span>
+    <span class="c1">#assumindo 3 users previamente criados (init_db.py), criacao do user 4 para poder haver 3 votos</span>
+    <span class="n">req_user</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/register&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;justAuser4&quot;</span><span class="p">,</span><span class="s2">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;teste1&quot;</span><span class="p">,</span><span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response1</span> <span class="o">=</span> <span class="n">register</span><span class="p">(</span><span class="n">req_user</span><span class="p">)</span>
+    <span class="n">content1</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response1</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="n">user4_id</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">content1</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">],</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verify_signature&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">})[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+   
+    
+    <span class="c1">#criacao de 3 questions por este novo user</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">aux_create_quiz</span><span class="p">(</span><span class="n">user4_id</span><span class="p">)</span>
+        
+    <span class="c1">#extrair o id da nova question criada</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user4_id</span><span class="p">)</span>
+    <span class="n">q1_id</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">q2_id</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">q3_id</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+    <span class="c1">#criar os 3 Votes necessarios para as questions 2 e 3 do user 4</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">aux_create_vote</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">q2_id</span><span class="p">)</span>
+        <span class="n">aux_create_vote</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">q3_id</span><span class="p">)</span>
+    <span class="c1">#criar 2 votes para a question 1 </span>
+    <span class="n">aux_create_vote</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">q1_id</span><span class="p">)</span>
+    <span class="n">aux_create_vote</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">q1_id</span><span class="p">)</span>
+    
+    <span class="c1">#chamar a funcao vote com o user 3 para a q1 (do user 4)</span>
+    <span class="c1">#a q1 passa a ter 3 votes accepted portanto a q1 deve passar para o state 4(accepted)</span>
+    <span class="c1"># e o role do user 4 deve passar de 1(creator) para 2 (solver)</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;u8&#39;</span><span class="p">)</span><span class="c1">#o token gerado é válido porque a função verify_token(tokens.py) apenas verifica se o token foi criado com o mesmo SECRET e não se o user é válido</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span><span class="n">token</span><span class="p">}</span> <span class="c1">#o token é passado no header do request campo authorization</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/vote&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="n">q1_id</span><span class="p">,</span><span class="s2">&quot;accepted&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="o">**</span><span class="n">header</span><span class="p">,</span> <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">vote</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    
+    <span class="c1">#verificar se o status da q1 passou a accepted</span>
+    <span class="n">q1</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">q1_id</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">q1</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="mi">4</span>
+    
+    <span class="c1">#verificar se o user4 passou a solver</span>
+    <span class="n">user4</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">user4_id</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">user4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">role</span> <span class="o">==</span> <span class="mi">2</span>
+    
+    <span class="c1">#verificar se a questao foi aprovada</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">f</span><span class="s2">&quot;question </span><span class="si">{</span><span class="n">q1_id</span><span class="si">}</span><span class="s2"> has been approved&quot;</span></div>
+
+    
+
+
+<div class="viewcode-block" id="test_rejected_question">
+<a class="viewcode-back" href="../../../../testing.unit_testing.REQ4.html#testing.unit_testing.REQ4.test_vote.test_rejected_question">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>   
+<span class="k">def</span> <span class="nf">test_rejected_question</span><span class="p">():</span>
+    <span class="c1">#assumindo 3 users previamente criados, criacao do user 4 para poder haver 3 votos</span>
+    <span class="n">req_user</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/register&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;justAuser4&quot;</span><span class="p">,</span><span class="s2">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;teste1&quot;</span><span class="p">,</span><span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">register</span><span class="p">(</span><span class="n">req_user</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="n">user4_id</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">],</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verify_signature&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">})[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+    
+    <span class="c1">#criacao de 1 question por este novo user</span>
+    <span class="n">aux_create_quiz</span><span class="p">(</span><span class="n">user4_id</span><span class="p">)</span>
+    
+    <span class="c1">#extrair o id da nova question criada</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user4_id</span><span class="p">)</span>
+    <span class="n">q_id</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+    
+    <span class="c1">#criar os 2 Votes a false para a question do user 4</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">aux_create_vote</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="n">q_id</span><span class="p">)</span>
+
+    <span class="c1">#chamar a funcao vote com o user 3 para a question (do user 4)</span>
+    <span class="c1">#a question passa a ter 3 votes rejected portanto o state da question deve passar para 3</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">write_token</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;u8&#39;</span><span class="p">)</span><span class="c1">#o token gerado é válido porque a função verify_token(tokens.py) apenas verifica se o token foi criado com o mesmo SECRET e não se o user é válido</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HTTP_AUTHORIZATION&quot;</span><span class="p">:</span><span class="n">token</span><span class="p">}</span> <span class="c1">#o token é passado no header do request campo authorization</span>
+    <span class="c1">#o corpo do request envia o id da question em que se esta a votar</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">RequestFactory</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/vote&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="n">q_id</span><span class="p">,</span><span class="s2">&quot;accepted&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="o">**</span><span class="n">header</span><span class="p">,</span> <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">vote</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    
+    <span class="c1">#verificar se o status da question passou a rejected</span>
+    <span class="n">q1</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">q_id</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">q1</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="mi">3</span>
+    
+    <span class="c1">#verificar se a questao foi aprovada</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">f</span><span class="s2">&quot;question </span><span class="si">{</span><span class="n">q_id</span><span class="si">}</span><span class="s2"> has been rejected&quot;</span></div>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

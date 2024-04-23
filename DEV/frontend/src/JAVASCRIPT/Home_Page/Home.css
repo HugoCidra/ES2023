@@ -1,0 +1,23 @@
+.home-body{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 160rem;
+    margin: 0 auto;
+}
+
+#my-quizzes{
+    height: 90vh;
+    max-height: 100rem;
+
+    flex-grow: 1;
+    /*flex-basis: 1rem;*/
+}
+
+#hall-of-fame{
+    height: 90vh;
+    max-height: 100rem;
+
+    flex-grow: 1;
+    /*flex-basis: 1rem;*/
+}

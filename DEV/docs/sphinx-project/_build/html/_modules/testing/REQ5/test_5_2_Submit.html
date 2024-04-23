@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="\n" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>testing.REQ5.test_5_2_Submit &mdash; Documentação do Backend, Testes Funcionais e Testes Unitários 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=3115fcbd"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Documentação do Backend, Testes Funcionais e Testes Unitários
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">testing package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Documentação do Backend, Testes Funcionais e Testes Unitários</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">testing.REQ5.test_5_2_Submit</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for testing.REQ5.test_5_2_Submit</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.service</span> <span class="kn">import</span> <span class="n">Service</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="c1">#from webdriver_manager.chrome import ChromeDriverManager</span>
+
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">TimeoutException</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">StaleElementReferenceException</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">NoSuchElementException</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">UnexpectedAlertPresentException</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;log.txt&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">allure</span>
+
+
+
+<div class="viewcode-block" id="login">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.login">[docs]</a>
+<span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for login in the application with a valid Solver account</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the function test_all()</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        If the page loaded have a title difrent from &quot;Login Page&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://localhost:3000/login&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;Login Page&quot;</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unable to load Login Page&quot;</span><span class="p">)</span>
+
+    <span class="n">driver</span><span class="o">.</span><span class="n">maximize_window</span><span class="p">()</span>
+
+    <span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;justAUser2&quot;</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;admin123&quot;</span>
+
+    <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span> <span class="c1"># wait for the page to load</span>
+        <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;fullName&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="c1"># send username and password and click login</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;fullName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> 
+    <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;pass&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+    <span class="n">login_button</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;login&quot;</span><span class="p">)</span>
+    <span class="n">login_button</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="k">return</span></div>
+
+
+
+
+<div class="viewcode-block" id="goto_ChooseTest">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.goto_ChooseTest">[docs]</a>
+<span class="k">def</span> <span class="nf">goto_ChooseTest</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for going to the Choose Test page from Home page</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the function test_all()</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None if the Choose Test page is loaded, False if a exeption is raised</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span> <span class="c1"># wait for the the solve button to load (the button is only available when the page is fully loaded)</span>
+            <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/main/header/nav/ul/li[5]/a/b&quot;</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">solve_button</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span> <span class="c1"># gets the solve button</span>
+            <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/main/header/nav/ul/li[5]/a/b&quot;</span>
+        <span class="p">)</span>
+        <span class="n">solve_button</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1"># got to the choose test page</span>
+    <span class="k">except</span> <span class="n">TimeoutException</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ Login failed&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># Retorna o URL errado mas está a funcionar	bem ??? Tirei Confirmação ES 2022/2023</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    expected_url = &quot;http://localhost:3000/choose-test&quot;</span>
+<span class="sd">    current_url = driver.current_url</span>
+
+<span class="sd">    if current_url != expected_url:</span>
+<span class="sd">        print(&quot;Expected a different redirection from Choose Test button&quot;)</span>
+<span class="sd">        print(&quot;Current URL is: &quot;, current_url)</span>
+<span class="sd">        return False</span>
+<span class="sd">    else:</span>
+
+<span class="sd">        return True</span>
+<span class="sd">    &#39;&#39;&#39;</span></div>
+
+
+
+
+<div class="viewcode-block" id="goto_SolveTest">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.goto_SolveTest">[docs]</a>
+<span class="k">def</span> <span class="nf">goto_SolveTest</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span> <span class="c1">#TODO FIX o path para a botão do teste</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for when in the Choose Test page, check if there are tests and select the first one</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the funciton test_all()</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if a test was selected and if the page link is correct, False if a exeption is raised (no tests available) or the page link is incorrect</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1">#WebDriverWait(driver, 5).until(EC.element_to_be_clickable( # ESTA PARTE FOI ALTERADA ES 2023/2024 O PATH DEIXADO NÃO É CLARO A QUE ELEMENTO SE REFERE</span>
+        <span class="c1">#    (By.XPATH, &quot;/html/body/div/div/div/main/div/div[1]/input&quot;))).click()</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&quot;div[class=&#39;box chooseTest_box&#39;]&quot;</span><span class="p">))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">StaleElementReferenceException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ No tests available&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">expected_url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:3000/solve-test&quot;</span>
+    <span class="n">current_url</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">current_url</span>
+
+    <span class="k">if</span> <span class="n">expected_url</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_url</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Expected a different redirection from Solve Test button&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current URL is: &quot;</span><span class="p">,</span> <span class="n">current_url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+
+
+<div class="viewcode-block" id="Cancel_Button">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.Cancel_Button">[docs]</a>
+<span class="k">def</span> <span class="nf">Cancel_Button</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for testing the Cancel Button on solving test page (&quot;/solve-test/&lt;id&gt;&quot;)</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the function test_all()</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Cancel the test</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[41]/button[2]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1"># it will wait for the cancel button to be clickable and then click it</span>
+    <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[21]/button[2]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1">#TODO REVIEW</span>
+
+        <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># print(&quot;TimeoutException&quot;)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;❌ Error in Cancel Button - Cancel Button not found (inconsistent xpath)&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># Confirm the cancel</span>
+    <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">alert_is_present</span><span class="p">())</span> <span class="c1"># wait for the alert to be present</span>
+    <span class="n">alert</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">alert</span> <span class="c1"># save the contex of the alert</span>
+
+    <span class="n">alert</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> <span class="c1"># confirm the alert</span>
+
+    <span class="c1"># Check if the test was cancelled</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">current_url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;http://localhost:3000/&quot;</span> <span class="o">==</span> <span class="n">driver</span><span class="o">.</span><span class="n">current_url</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Cancel - ✅&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Wrong redirection after alert cancel - ❌&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+
+
+<div class="viewcode-block" id="NoAnswers">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.NoAnswers">[docs]</a>
+<span class="k">def</span> <span class="nf">NoAnswers</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for testing the submition with no answers selected on solving test page (&quot;/solve-test/&lt;id&gt;&quot;)</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the funciton test_all()</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Submit the test without answering any question</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[41]/button[1]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1"># it will wait for the submit button to be clickable and then click it</span>
+
+    <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[21]/button[1]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1">#TODO REVIEW not founded element</span>
+
+        <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># print(&quot;TimeoutException&quot;)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;❌ Error in Submit Button - Submit Button not found (inconsistent xpath)&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        
+    <span class="c1"># when test is submitted, the result should appear where the submit button was in case of success of this test the text should be &quot;YOU GOT 0 POINTS&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//button[contains(text(), &quot;YOU GOT&quot;)]&#39;</span><span class="p">)))</span><span class="o">.</span><span class="n">text</span> <span class="c1"># it will wait for the component to be loaded and then get the text</span>
+    <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">aux</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[21]/button[1]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">text</span> <span class="c1">#TODO REVIEW not founded element</span>
+
+        <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;❌ Error in Result Button - Result Button not found (inconsistent xpath)&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">aux</span> <span class="o">==</span> <span class="s2">&quot;YOU GOT 0 POINTS&quot;</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test with no answers - ✅&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test with no answers - ❌&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+
+
+<div class="viewcode-block" id="Homepage_Button_Cancel">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.Homepage_Button_Cancel">[docs]</a>
+<span class="k">def</span> <span class="nf">Homepage_Button_Cancel</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for testing the cancelation of the alert that appears when the user clicks on homepage button on solving test page (&quot;/solve-test/&lt;id&gt;&quot;) after submiting the test (a precondition for this test is that the test was submitted)</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the funciton test_all()</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</span>
+<span class="sd">        </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">excepted_url</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">current_url</span>
+
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[61]/button[2]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1"># it will wait for the homepage button to be clickable and then click it </span>
+    <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[21]/button[2]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1">#TODO REVIEW not founded element</span>
+
+        <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># print(&quot;TimeoutException&quot;)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;❌ Error in Homepage Button - Homepage Button not found (inconsistent xpath)&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+
+    
+    <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">alert_is_present</span><span class="p">())</span> <span class="c1"># wait for the alert, with the confirmation, to be present</span>
+    <span class="n">alert</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">alert</span> <span class="c1"># save the contex of the alert</span>
+
+    <span class="n">alert</span><span class="o">.</span><span class="n">dismiss</span><span class="p">()</span> <span class="c1"># cancel the alert</span>
+
+
+    <span class="k">if</span> <span class="n">excepted_url</span> <span class="o">==</span> <span class="n">driver</span><span class="o">.</span><span class="n">current_url</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Homepage Button Cancel - ✅&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Wrong redirection after Homepage alert cancel - ❌&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+
+
+<div class="viewcode-block" id="Homepage_Button_Ok">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.Homepage_Button_Ok">[docs]</a>
+<span class="k">def</span> <span class="nf">Homepage_Button_Ok</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for testing the confirmation of the alert that appears when the user clicks on homepage button on solving test page (&quot;/solve-test/&lt;id&gt;&quot;) after submiting the test (a precondition for this test is that the test was submitted)</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        driver (webdriver): Selenium webdriver created in the funciton test_all()</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        1 if the test had success, 0 if the test failed or an exception (TimeoutException or NoSuchElementException) was raised</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[61]/button[2]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1"># it will wait for the homepage button to be clickable and then click it</span>
+    <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div/div/div/main/div/div[21]/button[2]&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="c1">#TODO REVIEW not founded element</span>
+
+        <span class="k">except</span> <span class="n">TimeoutException</span> <span class="ow">or</span> <span class="n">NoSuchElementException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># print(&quot;TimeoutException&quot;)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;❌ Error in Homepage Button - Homepage Button not found (inconsistent xpath)&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">alert_is_present</span><span class="p">())</span> <span class="c1"># wait for the alert, with the confirmation, to be present</span>
+    <span class="n">alert</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">alert</span> <span class="c1"># save the contex of the alert</span>
+
+    <span class="n">alert</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> <span class="c1"># confirm the alert</span>
+
+
+    <span class="k">if</span> <span class="s2">&quot;http://localhost:3000/&quot;</span> <span class="o">==</span> <span class="n">driver</span><span class="o">.</span><span class="n">current_url</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Homepage Button OK - ✅&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Wrong redirection after Homepage alert accept - ❌&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">i</span></div>
+
+
+
+<div class="viewcode-block" id="test_all">
+<a class="viewcode-back" href="../../../testing.REQ5.html#testing.REQ5.test_5_2_Submit.test_all">[docs]</a>
+<span class="nd">@allure</span><span class="o">.</span><span class="n">severity</span><span class="p">(</span><span class="n">allure</span><span class="o">.</span><span class="n">severity_level</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
+<span class="nd">@allure</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="s1">&#39;REQ5 - Solve Test&#39;</span><span class="p">)</span>
+<span class="nd">@allure</span><span class="o">.</span><span class="n">story</span><span class="p">(</span><span class="s1">&#39;Testar a submição em varios cenários&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_all</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Function responsible for calling all the tests of this file and print the results</span>
+<span class="sd">    </span>
+<span class="sd">    1 - login with a valid Solver account</span>
+<span class="sd">    </span>
+<span class="sd">    2 - go to the choose test page with the list of all test available to solve</span>
+
+<span class="sd">    3 - go to a solve test page /solve-test/&lt;id&gt;</span>
+
+<span class="sd">    4 - test the cancel button tha apears when the user is on the solve test page /solve-test/&lt;id&gt; if it works correctly the user will be redirected to the homepage</span>
+
+<span class="sd">    5 - go to the choose test page with the list of all test available to solve</span>
+
+<span class="sd">    6 - go to a solve test page /solve-test/&lt;id&gt;</span>
+
+<span class="sd">    7 - test the submition of a test with no answers selected on the solve test page /solve-test/&lt;id&gt; the user will remain on the same page and the text &quot;YOU GOT 0 POINTS&quot; will appear where the submit button was</span>
+<span class="sd">    </span>
+<span class="sd">    8 - test the cancelation of the alert that appears when the user clicks on homepage button if it works correctly the user will remain on the same page </span>
+
+<span class="sd">    9 - test the confirmation of the alert that appears when the user clicks on homepage button if it works correctly the user will be redirected to the homepage</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        None</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        integer: The number of tests passed</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># number of tests passed</span>
+
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">()</span>
+    
+    <span class="n">login</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span> <span class="c1"># 1</span>
+
+    <span class="c1"># 2</span>
+    <span class="k">if</span> <span class="n">goto_ChooseTest</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># 3</span>
+    <span class="k">if</span> <span class="n">goto_SolveTest</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">driver</span><span class="o">.</span><span class="n">maximize_window</span><span class="p">()</span>
+
+    <span class="c1"># 4</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">Cancel_Button</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+
+    <span class="c1"># 5</span>
+    <span class="k">if</span> <span class="n">goto_ChooseTest</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Failed goint to Choose Test page&quot;</span>
+    <span class="c1"># 6</span>
+    <span class="k">if</span> <span class="n">goto_SolveTest</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;No tests available&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CHEGOU&quot;</span><span class="p">)</span>
+    <span class="c1"># 7</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">NoAnswers</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+
+    <span class="c1"># 8</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">Homepage_Button_Cancel</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+
+    <span class="c1"># 9</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="n">Homepage_Button_Ok</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;REQ5 Test Submission TEST -&gt; ✅&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;REQ5 Test Submission TEST -&gt; ✅&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;REQ5 Test Submission TEST -&gt; ❌ (</span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s2"> out of 4 tests passed)&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;REQ5 Test Submission TEST -&gt; ❌ (</span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s2"> out of 4 tests passed)&quot;</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">pytest</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="vm">__file__</span><span class="p">])</span>
+    <span class="c1">#test_all()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, PL1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

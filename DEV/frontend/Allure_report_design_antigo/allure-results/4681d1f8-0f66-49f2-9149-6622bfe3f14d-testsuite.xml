@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537576970' stop='1700537577556'>
+    <name>justification</name>
+    <title>justification</title>
+    <test-cases>
+        <test-case start='1700537576971' status='passed' stop='1700537577552'>
+            <name>should return false for an empty justification</name>
+            <title>should return false for an empty justification</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537577554' status='passed' stop='1700537577555'>
+            <name>should return true for a non-empty justification</name>
+            <title>should return true for a non-empty justification</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

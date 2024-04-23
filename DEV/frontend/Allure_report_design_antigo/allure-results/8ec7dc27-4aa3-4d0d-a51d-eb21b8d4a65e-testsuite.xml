@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1700537592366' stop='1700537592398'>
+    <name>DataFetchPut</name>
+    <title>DataFetchPut</title>
+    <test-cases>
+        <test-case start='1700537592367' status='passed' stop='1700537592382'>
+            <name>should send a PUT request with authentication and data</name>
+            <title>should send a PUT request with authentication and data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592382' status='passed' stop='1700537592387'>
+            <name>should send a PUT request without authentication and with data</name>
+            <title>should send a PUT request without authentication and with data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592387' status='passed' stop='1700537592391'>
+            <name>should handle a PUT request failure with authentication</name>
+            <title>should handle a PUT request failure with authentication</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592391' status='passed' stop='1700537592393'>
+            <name>should handle a PUT request failure without authentication</name>
+            <title>should handle a PUT request failure without authentication</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592393' status='passed' stop='1700537592395'>
+            <name>should send a PUT request with authentication but no data</name>
+            <title>should send a PUT request with authentication but no data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+        <test-case start='1700537592395' status='passed' stop='1700537592397'>
+            <name>should send a PUT request without authentication and no data</name>
+            <title>should send a PUT request without authentication and no data</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>
